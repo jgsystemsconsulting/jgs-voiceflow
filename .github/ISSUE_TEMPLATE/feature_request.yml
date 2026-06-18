@@ -1,0 +1,39 @@
+name: Feature request
+description: Suggest an idea or improvement for VoiceFlow
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion! VoiceFlow is a local-first, privacy-respecting dictation tool —
+        ideas that fit that focus are most likely to land.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the need or the friction you're hitting.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: What would you like VoiceFlow to do?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other ways you've thought about solving this.
+    validations:
+      required: false
+  - type: textarea
+    id: fit
+    attributes:
+      label: Why it fits VoiceFlow
+      description: >
+        How does this fit a local-first, on-device dictation tool? (For example, does it keep
+        working offline / without sending data off the machine?)
+    validations:
+      required: false

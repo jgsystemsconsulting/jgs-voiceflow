@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & support
+    url: https://github.com/<OWNER>/voiceflow/blob/main/SUPPORT.md
+    about: For usage questions, please read SUPPORT and the docs first.
+  - name: Security or licensing (private)
+    url: mailto:support@jgsystemsconsulting.com
+    about: Report security issues or licensing questions privately, not as a public issue.

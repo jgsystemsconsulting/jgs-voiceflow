@@ -1,0 +1,11 @@
+# Docs-only public repo. Nothing to build. Block accidental drops of source/artifacts.
+*.py
+*.ps1
+*.iss
+*.spec
+*.exe
+*.bin
+__pycache__/
+.venv/
+Output/
+dist/

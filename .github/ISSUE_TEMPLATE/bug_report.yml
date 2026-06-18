@@ -1,0 +1,80 @@
+name: Bug report
+description: Report something that isn't working in VoiceFlow
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Please fill in the details below so we can
+        reproduce it. For antivirus/SmartScreen warnings, please read
+        [troubleshooting](../../blob/main/docs/troubleshooting.md) first.
+  - type: input
+    id: version
+    attributes:
+      label: VoiceFlow version
+      description: From the tray icon → About.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: "Windows 11 23H2 (or run 'winver')"
+    validations:
+      required: true
+  - type: input
+    id: gpu
+    attributes:
+      label: GPU (if any)
+      description: Leave blank if you don't have a dedicated GPU.
+      placeholder: "NVIDIA RTX 3060 / none"
+    validations:
+      required: false
+  - type: dropdown
+    id: mode
+    attributes:
+      label: STT / cleanup mode
+      description: Which providers were you using?
+      options:
+        - "Local STT + offline cleaner (default)"
+        - "Local STT + local LLM (Ollama/LM Studio)"
+        - "Local STT + cloud LLM"
+        - "Cloud STT"
+        - "Not sure"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Hold Ctrl+Space and say "..."
+        2. Release
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs. actual
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: >
+        Paste any relevant logs from %APPDATA%\VoiceFlow\ (drag a log file in to attach it).
+        Please remove anything private.
+      render: text
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have read the [troubleshooting guide](../../blob/main/docs/troubleshooting.md).
+          required: true
