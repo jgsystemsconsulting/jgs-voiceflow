@@ -8,7 +8,7 @@ All notable changes to VoiceFlow are documented here. The format is based on
 
 _Nothing yet._
 
-## [0.1.0] - <RELEASE-DATE>
+## [0.1.0] - 2026-06-19
 
 First public release.
 
