@@ -1,47 +1,94 @@
-# Marketing-content entry for the public website generator (RR-B-19).
-# AI-ingestible product metadata. No pricing.
-product: jgs-voiceflow
-name: VoiceFlow
-tagline: Push-to-talk voice dictation for Windows. On-device. Private.
-type: desktop-application
-platform: Windows 10/11 x64
-status: released
-version: 0.1.0
-repo: https://github.com/jgsystemsconsulting/jgs-voiceflow
-publisher: JG Systems Consulting Ltd.
-license: Proprietary (free to use)
+# Website content — jgs-voiceflow
+# Intended for AI ingestion. Maintenance decisions (layout, copy tone, navigation) are made by the consuming AI.
+# NOTE: jgs-voiceflow is a standalone Windows desktop application — no Cameo/CATIA Magic or MCP-bridge
+# dependency. Proprietary, free to use. No pricing in this file (per the website-content process).
 
-summary: >
-  VoiceFlow turns speech into clean, ready-to-use text anywhere on Windows. Hold a global
-  hotkey, speak, release — it transcribes locally with Whisper, removes filler and fixes
-  punctuation, and pastes the result at your cursor. Local-first and private by default:
-  on the standard path, no audio or text leaves the machine.
+product:
+  id: "01"
+  slug: jgs-voiceflow
+  name: VoiceFlow
+  family: JGS Desktop Apps
+  status: live
+  license: Proprietary (free to use)
+  repository: https://github.com/jgsystemsconsulting/jgs-voiceflow
 
-positioning: >
-  A privacy-respecting, local-first alternative to cloud dictation tools. Works fully offline
-  with bundled speech models — no account, no subscription, no audio upload required.
+  tagline: >
+    Push-to-talk voice dictation for Windows. Hold a hotkey, speak, release — transcribed
+    on-device and pasted at your cursor. Local-first, private, free to use.
 
-features:
-  - Global push-to-talk hotkey (hold or toggle), default Ctrl+Space.
-  - On-device speech-to-text via Whisper (faster-whisper); cloud STT is opt-in only.
-  - Text cleanup — removes "um"/"uh"/false starts, fixes grammar and punctuation.
-  - Output modes — raw, clean (default), summary, prompt — switchable per capture.
-  - Clipboard-safe paste at the cursor; your previous clipboard is restored.
-  - System-tray app with mode menu, settings, and optional start-on-login.
-  - First-run auto-configuration — profiles your hardware and picks the optimal model.
-  - Fully offline: the installer bundles the speech models; no internet needed to dictate.
+  summary: >
+    VoiceFlow turns speech into clean, ready-to-use text anywhere on Windows. Hold a global
+    hotkey, speak, release — it transcribes locally with Whisper (faster-whisper), removes filler
+    and fixes punctuation, then pastes the result at your cursor, clipboard-safe. It lives in the
+    system tray with raw/clean/summary/prompt output modes, a custom dictionary, and searchable
+    local history. Local-first and private by default: on the standard path, no audio or text
+    leaves the machine — cloud speech-to-text and cloud LLM cleanup are strictly opt-in. The
+    installer bundles the speech models, so it works fully offline with no account and no
+    subscription. First launch profiles the machine's hardware and picks the optimal local model
+    automatically.
 
-audience:
-  - Writers, developers, and knowledge workers who dictate frequently.
-  - Privacy-conscious users who do not want audio sent to the cloud.
-  - Accessibility users who prefer voice input.
+  problem: >
+    Cloud dictation tools are fast but send your voice off your machine, require accounts and
+    subscriptions, and stop working offline. Privacy-conscious users, and anyone on a locked-down
+    or air-gapped machine, need accurate dictation that runs entirely on-device — with no upload,
+    no login, and no recurring cost.
 
-keywords:
-  - dictation
-  - speech-to-text
-  - whisper
-  - windows
-  - voice
-  - accessibility
-  - local-first
-  - privacy
+  approach:
+    pipeline:
+      - step: capture
+        does: Global push-to-talk hotkey (default Ctrl+Space), hold or toggle, with a tray indicator and on-screen overlay while recording.
+      - step: transcribe
+        does: On-device speech-to-text via Whisper (faster-whisper / CTranslate2). No audio leaves the machine on the default path.
+      - step: clean
+        does: Removes filler ("um", "uh", false starts) and fixes grammar/punctuation via a built-in offline cleaner; optional local or cloud LLM for summary/prompt modes.
+      - step: paste
+        does: Inserts the result at the cursor, clipboard-safe — the previous clipboard is restored afterwards.
+    differentiators:
+      - Fully local by default — zero audio/text egress on the standard path, and you can verify it.
+      - Works offline out of the box — the installer bundles the speech models; no internet, account, or subscription.
+      - Hardware-aware — first run benchmarks the machine and selects the optimal on-device model automatically.
+      - Free to use — proprietary, no cost for personal or internal business use.
+
+  personas:
+    - role: Writer / knowledge worker
+      use_case: Dictate notes, messages, and drafts anywhere, with clean punctuated output at the cursor.
+    - role: Developer
+      use_case: Speak commit messages, prompts, and docs without breaking flow; reformat speech into structured prompts.
+    - role: Privacy-conscious user
+      use_case: Get accurate dictation with no audio ever sent to the cloud — verifiable, offline.
+    - role: Accessibility user
+      use_case: Voice-driven text entry across all Windows apps, no admin rights required.
+
+  features:
+    - feature: Push-to-talk hotkey
+      role: Global Ctrl+Space (hold or toggle); cancel and paste-last hotkeys too.
+    - feature: On-device transcription
+      role: Whisper STT runs locally; cloud STT is opt-in only.
+    - feature: Output modes
+      role: raw / clean (default) / summary / prompt, switchable per capture.
+    - feature: Offline cleanup
+      role: Built-in rule-based cleaner; optional local/cloud LLM for richer modes.
+    - feature: Tray app + overlay
+      role: Mode menu, settings, optional start-on-login; on-screen recording chip.
+    - feature: Custom dictionary + history
+      role: Term replacements and searchable local history, with a privacy-off switch.
+
+  install:
+    note: >
+      Windows 10/11 x64 desktop app. Download the signed-or-checksummed installer from the GitHub
+      Release and run it per-user (no administrator rights). Fully offline after install.
+    methods:
+      - method: Installer
+        command: "Download VoiceFlow-Setup.exe from the latest release and run it (per-user, no admin)."
+      - method: Verify download
+        command: "Get-FileHash VoiceFlow-Setup.exe -Algorithm SHA256   # compare to SHA256SUMS.txt"
+
+  compatibility:
+    - Windows 10 (64-bit)
+    - Windows 11 (64-bit)
+    - NVIDIA GPU optional (CUDA acceleration; runs on CPU otherwise)
+
+  links:
+    repository: https://github.com/jgsystemsconsulting/jgs-voiceflow
+    releases: https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest
+    license: Proprietary (free to use)

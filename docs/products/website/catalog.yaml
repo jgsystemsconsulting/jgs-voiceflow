@@ -1,8 +1,38 @@
-# Public website product catalogue (RR-B-19). Lists every product entry in this repo.
-# The website generator reads this to assemble the product pages. No pricing here.
+# Product catalog — VoiceFlow
+# Intended for AI ingestion. This file is the entry point for website generation.
+# Full product detail lives in the per-product YAML files in this directory.
+# Maintenance decisions (layout, navigation, copy tone) are made by the consuming AI.
+
+brand:
+  family_name: JGS Desktop Apps
+  company: JG Systems Consulting Ltd.
+  host_application: Windows 10/11 (x64) desktop
+  tagline: >
+    On-device productivity apps for Windows. Local-first and private — your data stays on
+    your machine.
+
+  value_propositions:
+    - Runs entirely on-device — no audio or text leaves the machine on the default path.
+    - Works fully offline — models bundled in the installer; no account, no subscription.
+    - Free to use — proprietary, no cost for personal or internal business use.
+    - No admin rights — per-user install, lives in the system tray.
+
 products:
-  - id: jgs-voiceflow
+  - id: "01"
+    slug: jgs-voiceflow
     name: VoiceFlow
-    entry: 01-jgs-voiceflow.yaml
-    type: desktop-application
-    status: released
+    layer: Desktop Apps
+    status: live
+    content_file: 01-jgs-voiceflow.yaml
+    one_line: Push-to-talk voice dictation for Windows — on-device Whisper STT, pasted at your cursor
+    tiers: [FREE]
+    depends_on: []
+
+status_legend:
+  live: Available now
+  in_progress: In active development; early access may be available
+  in_development: Planned; not yet available
+  planned: On the roadmap
+
+tier_legend:
+  FREE: Free to use for personal or internal business use; proprietary licence
