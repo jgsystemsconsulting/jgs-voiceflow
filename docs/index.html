@@ -15,8 +15,12 @@
 <meta name="twitter:description" content="Hold a hotkey, speak, release. Transcribed locally, pasted at your cursor. Private by default, free to use.">
 <style>
   /* JGS brand & design system — dark engineering drafting-document aesthetic.
-     Self-hosted fonts (JetBrains Mono + Inter) to be added under docs/fonts/ before publish;
-     until then the token fallback stacks render. No third-party assets / CDN / tracking. */
+     Self-hosted fonts (JetBrains Mono + Inter, latin subset) under docs/fonts/ —
+     no third-party assets / CDN / tracking. */
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('./fonts/inter-400.woff2') format('woff2'); }
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('./fonts/inter-600.woff2') format('woff2'); }
+  @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('./fonts/jetbrains-mono-400.woff2') format('woff2'); }
+  @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('./fonts/jetbrains-mono-700.woff2') format('woff2'); }
   :root {
     --ink: #0a0a0b; --ink-2: #111113; --ink-3: #16171a; --ink-4: #1e2024;
     --line: #2a2d33; --line-2: #3a3e46;
