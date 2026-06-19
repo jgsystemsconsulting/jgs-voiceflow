@@ -20,16 +20,12 @@ Double-click `VoiceFlow-Setup.exe`.
 > code-signed**, so Windows shows a blue **"Windows protected your PC — unknown publisher"** screen.
 > This is expected. Click **More info**, then **Run anyway**.
 >
-> ![SmartScreen "More info → Run anyway"](images/smartscreen.png)
->
 > To confirm your download is intact and matches the official release before running it, check its
 > [checksum](verifying-downloads.md). For antivirus warnings, see
 > [troubleshooting](troubleshooting.md).
 
 The installer is **per-user** (no administrator rights needed). It adds a Start-Menu shortcut and
 offers an optional **start-on-login** checkbox.
-
-![Installer options](images/install-wizard.png)
 
 ## 3. First launch (one-time auto-configuration)
 
@@ -39,8 +35,6 @@ memory, and GPU and picks the best local speech model and settings.
 - This happens **once**, and runs **entirely on your machine** (nothing is uploaded).
 - It typically takes **about 30 seconds to a few minutes**, depending on your hardware.
 - You'll see a "configuring…" indicator while it works — a normal wait, not a freeze.
-
-![First-run auto-configuration](images/first-run.png)
 
 ## 4. Your first dictation
 

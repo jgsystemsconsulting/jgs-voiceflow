@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-Proprietary%20%C2%B7%20Free%20to%20use-green)](LICENSE)
 [![Downloads](https://img.shields.io/github/downloads/jgsystemsconsulting/jgs-voiceflow/total)](https://github.com/jgsystemsconsulting/jgs-voiceflow/releases)
 
-![VoiceFlow recording overlay and tray states](docs/images/hero.png)
+![VoiceFlow tray icon states: idle, recording, transcribing](docs/images/tray-states.png)
 
 ---
 
