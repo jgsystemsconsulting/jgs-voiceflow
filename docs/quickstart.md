@@ -5,7 +5,7 @@ take a little longer — see the notes below — but the hands-on steps are quic
 
 ## 1. Download
 
-Go to the [latest release](https://github.com/<OWNER>/voiceflow/releases/latest) and download
+Go to the [latest release](https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest) and download
 **`VoiceFlow-Setup.exe`**.
 
 > **Heads up:** the installer is **~700 MB** because the offline speech models are bundled inside

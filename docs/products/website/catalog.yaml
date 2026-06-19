@@ -1,0 +1,8 @@
+# Public website product catalogue (RR-B-19). Lists every product entry in this repo.
+# The website generator reads this to assemble the product pages. No pricing here.
+products:
+  - id: jgs-voiceflow
+    name: VoiceFlow
+    entry: 01-jgs-voiceflow.yaml
+    type: desktop-application
+    status: released

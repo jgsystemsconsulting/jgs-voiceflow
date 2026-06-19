@@ -18,7 +18,7 @@ This is the most common first-run question, so here's the full picture.
   - If your antivirus quarantines the installer, you can **allow/restore** it in your AV's
     quarantine or exclusions screen.
   - For peace of mind, download only from the
-    [official releases page](https://github.com/<OWNER>/voiceflow/releases/latest) and
+    [official releases page](https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest) and
     [verify the SHA-256 checksum](verifying-downloads.md) before running it.
 
 ## No microphone / wrong device
@@ -52,4 +52,4 @@ If `Ctrl+Space` (or another hotkey) clashes with another app, rebind it in the t
 ## Where are the logs and settings?
 
 In `%APPDATA%\VoiceFlow\` — paste that into the File Explorer address bar. You'll find the config and
-log files there (handy to attach to a [bug report](https://github.com/<OWNER>/voiceflow/issues/new/choose)).
+log files there (handy to attach to a [bug report](https://github.com/jgsystemsconsulting/jgs-voiceflow/issues/new/choose)).

@@ -1,0 +1,47 @@
+# Marketing-content entry for the public website generator (RR-B-19).
+# AI-ingestible product metadata. No pricing.
+product: jgs-voiceflow
+name: VoiceFlow
+tagline: Push-to-talk voice dictation for Windows. On-device. Private.
+type: desktop-application
+platform: Windows 10/11 x64
+status: released
+version: 0.1.0
+repo: https://github.com/jgsystemsconsulting/jgs-voiceflow
+publisher: JG Systems Consulting Ltd.
+license: Proprietary (free to use)
+
+summary: >
+  VoiceFlow turns speech into clean, ready-to-use text anywhere on Windows. Hold a global
+  hotkey, speak, release — it transcribes locally with Whisper, removes filler and fixes
+  punctuation, and pastes the result at your cursor. Local-first and private by default:
+  on the standard path, no audio or text leaves the machine.
+
+positioning: >
+  A privacy-respecting, local-first alternative to cloud dictation tools. Works fully offline
+  with bundled speech models — no account, no subscription, no audio upload required.
+
+features:
+  - Global push-to-talk hotkey (hold or toggle), default Ctrl+Space.
+  - On-device speech-to-text via Whisper (faster-whisper); cloud STT is opt-in only.
+  - Text cleanup — removes "um"/"uh"/false starts, fixes grammar and punctuation.
+  - Output modes — raw, clean (default), summary, prompt — switchable per capture.
+  - Clipboard-safe paste at the cursor; your previous clipboard is restored.
+  - System-tray app with mode menu, settings, and optional start-on-login.
+  - First-run auto-configuration — profiles your hardware and picks the optimal model.
+  - Fully offline: the installer bundles the speech models; no internet needed to dictate.
+
+audience:
+  - Writers, developers, and knowledge workers who dictate frequently.
+  - Privacy-conscious users who do not want audio sent to the cloud.
+  - Accessibility users who prefer voice input.
+
+keywords:
+  - dictation
+  - speech-to-text
+  - whisper
+  - windows
+  - voice
+  - accessibility
+  - local-first
+  - privacy

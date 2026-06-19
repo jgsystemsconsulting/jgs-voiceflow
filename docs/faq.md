@@ -62,7 +62,7 @@ them manually if you want a clean wipe:
 ## How do I update to a new version?
 
 VoiceFlow v0.1.x has **no auto-update**. To update, download the latest `VoiceFlow-Setup.exe` from
-the [releases page](https://github.com/<OWNER>/voiceflow/releases/latest) and run it over your
+the [releases page](https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest) and run it over your
 existing install — your settings and history in `%APPDATA%\VoiceFlow\` are preserved. Each installer
 is the full ~700 MB (models are re-bundled); there's no smaller delta update yet.
 
@@ -70,5 +70,5 @@ is the full ~700 MB (models are re-bundled); there's no smaller delta update yet
 
 No — VoiceFlow is proprietary. It isn't code-signed yet (that's a paid certificate we may add
 later), so download only from the
-[official releases page](https://github.com/<OWNER>/voiceflow/releases/latest) and
+[official releases page](https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest) and
 [verify the SHA-256 checksum](verifying-downloads.md) to confirm your copy is intact.

@@ -4,10 +4,10 @@
 > Hold a hotkey, speak, release — VoiceFlow transcribes your speech locally, cleans it into
 > tight, ready-to-use text, and pastes it at your cursor. Free to use.
 
-[![Download](https://img.shields.io/github/v/release/<OWNER>/voiceflow?label=download&sort=semver)](https://github.com/<OWNER>/voiceflow/releases/latest)
+[![Download](https://img.shields.io/github/v/release/jgsystemsconsulting/jgs-voiceflow?label=download&sort=semver)](https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2F11%20x64-blue)](#requirements)
 [![License](https://img.shields.io/badge/license-Proprietary%20%C2%B7%20Free%20to%20use-green)](LICENSE)
-[![Downloads](https://img.shields.io/github/downloads/<OWNER>/voiceflow/total)](https://github.com/<OWNER>/voiceflow/releases)
+[![Downloads](https://img.shields.io/github/downloads/jgsystemsconsulting/jgs-voiceflow/total)](https://github.com/jgsystemsconsulting/jgs-voiceflow/releases)
 
 ![VoiceFlow recording overlay and tray states](docs/images/hero.png)
 
@@ -25,7 +25,7 @@
 
 ## Download & install
 
-**[⬇ Download the latest release](https://github.com/<OWNER>/voiceflow/releases/latest)** —
+**[⬇ Download the latest release](https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest)** —
 `VoiceFlow-Setup.exe` (**~700 MB**; the offline speech models are bundled, so the download is
 large but you can dictate with no internet afterward — it may take a few minutes).
 
@@ -36,6 +36,33 @@ exact screen). You can [verify your download's checksum](docs/verifying-download
 
 Full step-by-step walk-through (with screenshots): **[Quickstart →](docs/quickstart.md)**.
 Antivirus or SmartScreen questions: see [troubleshooting](docs/troubleshooting.md).
+
+### Install with your AI agent
+
+Paste this into a coding agent (Claude Code, Cursor, Copilot CLI, etc.) to install VoiceFlow for you:
+
+```text
+Install VoiceFlow (Windows push-to-talk voice dictation), version 0.1.0, from
+https://github.com/jgsystemsconsulting/jgs-voiceflow
+
+1. First read this repo's README.md and docs/quickstart.md so you understand the product
+   and the install flow.
+2. Check prerequisites: this is a Windows 10/11 x64 desktop app. If the current machine is
+   not Windows x64, stop and tell me — it will not run.
+3. Download the latest installer from the GitHub Release:
+   gh release download --repo jgsystemsconsulting/jgs-voiceflow --pattern "VoiceFlow-Setup.exe" --dir "$env:TEMP\vf"
+   gh release download --repo jgsystemsconsulting/jgs-voiceflow --pattern "SHA256SUMS.txt"   --dir "$env:TEMP\vf"
+4. Verify the download against the checksum (see docs/verifying-downloads.md):
+   (Get-FileHash "$env:TEMP\vf\VoiceFlow-Setup.exe" -Algorithm SHA256).Hash.ToLower()  # must match SHA256SUMS.txt
+5. Run the installer per-user (no admin needed). It is silent-installable:
+   Start-Process "$env:TEMP\vf\VoiceFlow-Setup.exe" -ArgumentList "/VERYSILENT","/NORESTART" -Wait
+   Note: VoiceFlow is not code-signed yet, so Windows SmartScreen may warn about an unknown
+   publisher on an interactive run — that is expected (More info -> Run anyway).
+6. Verify: confirm "VoiceFlow" appears in the Start Menu / Apps list, then launch it and check
+   the tray icon appears. Hold Ctrl+Space, speak, release, and confirm text is pasted.
+7. Note for me: VoiceFlow is PROPRIETARY software that is free to use — install and run only;
+   do not copy, modify, redistribute, or reverse-engineer it. See LICENSE.
+```
 
 ## Privacy
 

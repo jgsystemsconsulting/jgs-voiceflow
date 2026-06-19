@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VoiceFlow — On-device push-to-talk voice dictation for Windows</title>
+<meta name="description" content="VoiceFlow: push-to-talk voice dictation for Windows. Hold a hotkey, speak, release — transcribed on-device with Whisper and pasted at your cursor. Local-first, private, free to use.">
+<link rel="canonical" href="https://jgsystemsconsulting.github.io/jgs-voiceflow/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="VoiceFlow — On-device voice dictation for Windows">
+<meta property="og:description" content="Hold a hotkey, speak, release. Transcribed locally, pasted at your cursor. Private by default, free to use.">
+<meta property="og:url" content="https://jgsystemsconsulting.github.io/jgs-voiceflow/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VoiceFlow — On-device voice dictation for Windows">
+<meta name="twitter:description" content="Hold a hotkey, speak, release. Transcribed locally, pasted at your cursor. Private by default, free to use.">
+<style>
+  /* JGS brand & design system — dark engineering drafting-document aesthetic.
+     Self-hosted fonts (JetBrains Mono + Inter) to be added under docs/fonts/ before publish;
+     until then the token fallback stacks render. No third-party assets / CDN / tracking. */
+  :root {
+    --ink: #0a0a0b; --ink-2: #111113; --ink-3: #16171a; --ink-4: #1e2024;
+    --line: #2a2d33; --line-2: #3a3e46;
+    --mute: #6b7078; --mute-2: #8b9099;
+    --text: #c7ccd3; --text-hi: #e8ebf0;
+    --paper: #f4f2ec; --paper-ink: #0a0a0b;
+    --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    --sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --pad-x: clamp(24px, 4vw, 80px); --pad-section: clamp(48px, 6vw, 96px);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--ink); color: var(--text);
+    font-family: var(--sans); font-size: 16px; line-height: 1.7;
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; padding-left: var(--pad-x); padding-right: var(--pad-x); }
+  a { color: var(--text-hi); text-decoration: none; border-bottom: 1px solid var(--line-2); }
+  a:hover { border-bottom-color: var(--paper); }
+  :focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
+
+  /* Masthead */
+  .masthead { border-bottom: 1px solid var(--line); }
+  .masthead .wrap {
+    display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: baseline;
+    padding-top: 14px; padding-bottom: 14px;
+    font-family: var(--mono); font-size: 0.625rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute);
+  }
+  .masthead b { color: var(--text-hi); font-weight: 700; }
+
+  /* Sections */
+  section { border-bottom: 1px solid var(--line); }
+  .sec { padding-top: var(--pad-section); padding-bottom: var(--pad-section); }
+  .label {
+    font-family: var(--mono); font-size: 0.6875rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute);
+    margin: 0 0 18px;
+  }
+  h1 {
+    font-family: var(--mono); font-weight: 700; letter-spacing: -0.02em;
+    font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.05; margin: 0 0 18px;
+    color: var(--text-hi);
+  }
+  h2 {
+    font-family: var(--mono); font-weight: 700; letter-spacing: -0.01em;
+    font-size: clamp(1.25rem, 2.4vw, 1.6rem); margin: 0 0 14px; color: var(--text-hi);
+  }
+  .lede { font-size: clamp(1rem, 1.6vw, 1.15rem); color: var(--mute-2); max-width: 60ch; }
+  p { color: var(--mute-2); }
+  p.body { color: var(--text); }
+
+  /* Buttons */
+  .btns { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.6em;
+    font-family: var(--mono); font-weight: 700; letter-spacing: 0.06em;
+    font-size: 0.8125rem; text-transform: uppercase;
+    padding: 13px 20px; border: 1px solid var(--line); background: transparent;
+    color: var(--text-hi);
+  }
+  .btn:hover { border-color: var(--paper); }
+  .btn-primary { background: var(--paper); color: var(--paper-ink); border-color: var(--paper); }
+
+  /* Grid-of-cells */
+  .grid {
+    display: grid; gap: 1px; background: var(--line);
+    border: 1px solid var(--line); margin-top: 8px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cell { background: var(--ink); padding: 22px 24px; }
+  .cell h3 {
+    font-family: var(--mono); font-weight: 700; font-size: 0.95rem;
+    margin: 0 0 8px; color: var(--text-hi); letter-spacing: -0.01em;
+  }
+  .cell p { margin: 0; font-size: 0.95rem; }
+
+  /* Numbered steps */
+  .steps { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .step { background: var(--ink); padding: 22px 24px; display: flex; gap: 20px; align-items: baseline; }
+  .step .n { font-family: var(--mono); font-weight: 700; font-size: 3rem; line-height: 1; color: var(--line-2); min-width: 2ch; }
+  .step .t h3 { font-family: var(--mono); font-weight: 700; font-size: 0.95rem; margin: 0 0 6px; color: var(--text-hi); }
+  .step .t p { margin: 0; font-size: 0.95rem; }
+
+  /* Drafting-sheet panel */
+  .sheet {
+    border: 1px solid var(--line); background: var(--ink-2);
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 40px 40px; background-position: -1px -1px;
+    padding: 40px 32px; position: relative;
+  }
+  .sheet .corner { position: absolute; width: 10px; height: 10px; border: 1px solid var(--line-2); }
+  .sheet .c-tl { top: 8px; left: 8px; border-right: 0; border-bottom: 0; }
+  .sheet .c-tr { top: 8px; right: 8px; border-left: 0; border-bottom: 0; }
+  .sheet .c-bl { bottom: 8px; left: 8px; border-right: 0; border-top: 0; }
+  .sheet .c-br { bottom: 8px; right: 8px; border-left: 0; border-top: 0; }
+  .titleblock {
+    margin-top: 28px; border-top: 1px solid var(--line); padding-top: 14px;
+    font-family: var(--mono); font-size: 0.625rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute);
+    display: flex; flex-wrap: wrap; gap: 6px 28px;
+  }
+
+  table { border-collapse: collapse; width: 100%; margin-top: 8px; font-size: 0.95rem; }
+  th, td { border: 1px solid var(--line); padding: 12px 16px; text-align: left; vertical-align: top; }
+  th { font-family: var(--mono); font-weight: 700; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); }
+  td code, p code, .step code { font-family: var(--mono); font-size: 0.9em; color: var(--text-hi); }
+
+  footer { color: var(--mute); font-size: 0.85rem; }
+  footer .wrap { padding-top: 32px; padding-bottom: 48px; }
+
+  @media (max-width: 860px) {
+    .grid { grid-template-columns: 1fr; }
+    .step { flex-direction: column; gap: 6px; }
+    .step .n { font-size: 2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <span>CLASSIFICATION: <b>PUBLIC</b></span>
+    <span>LICENCE: <b>PROPRIETARY · FREE TO USE</b></span>
+    <span>DOC-ID: <b>JGS-VOICEFLOW</b></span>
+    <span>REV <b>0.1.0</b></span>
+    <span>PLATFORM: <b>WINDOWS 10/11 x64</b></span>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap sec">
+      <p class="label">§01 — Product</p>
+      <h1>VoiceFlow</h1>
+      <p class="lede">Push-to-talk voice dictation for Windows. Hold a hotkey, speak, release —
+      VoiceFlow transcribes your speech on-device, cleans it into tight, ready-to-use text, and
+      pastes it at your cursor. Local-first and private by default; free to use.</p>
+      <div class="btns">
+        <a class="btn btn-primary" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest">Download the installer →</a>
+        <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow">View the repository →</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap sec">
+      <p class="label">§02 — What it does</p>
+      <div class="grid">
+        <div class="cell"><h3>Push-to-talk</h3><p>A global hotkey (default <code>Ctrl+Space</code>) — hold or toggle. Speak, release, done.</p></div>
+        <div class="cell"><h3>On-device transcription</h3><p>Speech-to-text runs locally with Whisper. No audio is uploaded on the default path.</p></div>
+        <div class="cell"><h3>Clean text</h3><p>Removes filler ("um", "uh", false starts), fixes punctuation, and can restructure rambling speech.</p></div>
+        <div class="cell"><h3>Paste at the cursor</h3><p>Inserts the result where you are typing, clipboard-safe — your previous clipboard is restored.</p></div>
+        <div class="cell"><h3>Lives in the tray</h3><p>A system-tray app with a mode menu, settings, and optional start-on-login.</p></div>
+        <div class="cell"><h3>Fully offline</h3><p>The installer bundles the speech models; cloud services are opt-in only.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap sec">
+      <p class="label">§03 — Output modes</p>
+      <table>
+        <thead><tr><th>Mode</th><th>What it does</th><th>Needs a cloud / LLM?</th></tr></thead>
+        <tbody>
+          <tr><td><code>raw</code></td><td>Verbatim transcript, lightly punctuated</td><td>No</td></tr>
+          <tr><td><code>clean</code></td><td>Filler removed, grammar/punctuation fixed (default)</td><td>No (offline cleaner)</td></tr>
+          <tr><td><code>summary</code></td><td>Condensed into a tight brief</td><td>Optional (better with an LLM)</td></tr>
+          <tr><td><code>prompt</code></td><td>Reformatted into a structured prompt</td><td>Optional (better with an LLM)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap sec">
+      <p class="label">§04 — Install</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><div class="t"><h3>Download</h3><p>Get <code>VoiceFlow-Setup.exe</code> (~700 MB; offline models bundled) from the <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest">latest release</a>.</p></div></div>
+        <div class="step"><span class="n">2</span><div class="t"><h3>Run it</h3><p>Per-user install — no administrator rights. VoiceFlow is not code-signed yet, so Windows may warn about an unknown publisher: choose More info → Run anyway.</p></div></div>
+        <div class="step"><span class="n">3</span><div class="t"><h3>First run</h3><p>VoiceFlow profiles your hardware and picks the optimal local model — automatically, on-device.</p></div></div>
+        <div class="step"><span class="n">4</span><div class="t"><h3>Dictate</h3><p>Hold <code>Ctrl+Space</code>, speak, release. The cleaned text is pasted at your cursor.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap sec">
+      <p class="label">§05 — Privacy</p>
+      <p class="body">On the default path, no audio and no text ever leave your machine — speech-to-text
+      runs on-device and cleanup uses a built-in offline cleaner. Cloud services are strictly opt-in,
+      and you can verify zero network use yourself.</p>
+      <div class="btns">
+        <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/docs/privacy.md">Privacy &amp; how to verify →</a>
+        <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/docs/verifying-downloads.md">Verify your download →</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap sec">
+      <p class="label">§06 — Documentation</p>
+      <div class="sheet">
+        <span class="corner c-tl"></span><span class="corner c-tr"></span>
+        <span class="corner c-bl"></span><span class="corner c-br"></span>
+        <h2>Get started</h2>
+        <p class="body">Step-by-step guides for installing, configuring, and troubleshooting VoiceFlow.</p>
+        <div class="btns">
+          <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/docs/quickstart.md">Quickstart →</a>
+          <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/docs/faq.md">FAQ →</a>
+          <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/docs/troubleshooting.md">Troubleshooting →</a>
+          <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/SUPPORT.md">Support →</a>
+        </div>
+        <div class="titleblock">
+          <span>SHEET: DOCS</span><span>PRODUCT: VOICEFLOW</span><span>REV: 0.1.0</span>
+          <span>PUBLISHER: JG SYSTEMS CONSULTING LTD.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>&copy; 2026 JG Systems Consulting Ltd. "VoiceFlow" and "JG Systems Consulting" are trademarks
+    of JG Systems Consulting Ltd. VoiceFlow is proprietary software, free to use under its
+    <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/LICENSE">LICENSE</a>.
+    It uses open-source components (including faster-whisper and OpenAI Whisper models), each under
+    its own licence.</p>
+  </div>
+</footer>
+
+</body>
+</html>

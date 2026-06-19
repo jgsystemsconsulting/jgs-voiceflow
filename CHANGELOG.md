@@ -26,5 +26,5 @@ First public release.
 - **First-run auto-configuration** — profiles your hardware and selects the best local settings.
 - **Fully-offline installer** with bundled Whisper models — install and dictate with no internet.
 
-[Unreleased]: https://github.com/<OWNER>/voiceflow/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/<OWNER>/voiceflow/releases/tag/v0.1.0
+[Unreleased]: https://github.com/jgsystemsconsulting/jgs-voiceflow/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/tag/v0.1.0

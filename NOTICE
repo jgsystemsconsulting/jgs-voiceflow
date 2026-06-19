@@ -1,0 +1,29 @@
+VoiceFlow
+Copyright (c) 2026 JG Systems Consulting Ltd. All Rights Reserved.
+
+JG Systems Consulting Ltd. is a company incorporated in England and Wales,
+registered office: Brookfield Court, Selby Road, Garforth, Leeds, England,
+LS25 1NB.
+
+VoiceFlow is proprietary software, made available free of charge to use under
+the terms of the accompanying LICENSE. "VoiceFlow" and "JG Systems Consulting"
+are trademarks of JG Systems Consulting Ltd.
+
+--------------------------------------------------------------------------
+Third-party components
+--------------------------------------------------------------------------
+VoiceFlow's distributed installer bundles or depends on the following
+open-source components, each governed by its own licence. These notices are
+provided for attribution; the components remain under their respective
+licences, not the VoiceFlow proprietary licence.
+
+  - faster-whisper (SYSTRAN)            — MIT License
+  - CTranslate2 (OpenNMT)               — MIT License
+  - OpenAI Whisper model weights        — MIT License
+  - PyAV / FFmpeg libraries             — BSD-3-Clause / LGPL (FFmpeg)
+  - sounddevice / PortAudio             — MIT / PortAudio licence
+  - pynput, pystray, Pillow, numpy,     — see each project's licence
+    httpx, python-dotenv
+
+Full licence texts for bundled components are available from their respective
+project repositories.

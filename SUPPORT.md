@@ -16,7 +16,7 @@ Most questions are already answered in the docs:
 ## Getting help
 
 - **Bugs and feature requests:** open an issue using the
-  [issue templates](https://github.com/<OWNER>/voiceflow/issues/new/choose). Please include your
+  [issue templates](https://github.com/jgsystemsconsulting/jgs-voiceflow/issues/new/choose). Please include your
   VoiceFlow version, Windows version, and steps to reproduce.
 - **Licensing or private/sensitive matters:** email
   [support@jgsystemsconsulting.com](mailto:support@jgsystemsconsulting.com).

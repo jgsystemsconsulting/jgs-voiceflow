@@ -1,0 +1,13 @@
+Product:    VoiceFlow
+Repo:       jgs-voiceflow (public, docs-only release repo)
+Version:    0.1.0
+Tag:        v0.1.0
+Built:      2026-06-19T13:05:11Z
+Publisher:  JG Systems Consulting Ltd.
+
+Note: This is the public, customer-facing release repository. The proprietary
+source is maintained privately and is intentionally NOT present here. The
+source git SHA is omitted to avoid exposing internal commit fingerprints in a
+public release; the intended release tag is recorded above (per RR-B-10).
+The signed/unsigned installer artifact is attached to the GitHub Release for
+the tag above, not committed to this repository.

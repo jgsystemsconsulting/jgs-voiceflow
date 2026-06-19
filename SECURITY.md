@@ -8,7 +8,7 @@ VoiceFlow is closed-source, so please **do not** open a public GitHub issue for 
 Instead, report privately:
 
 - **Email:** [support@jgsystemsconsulting.com](mailto:support@jgsystemsconsulting.com)
-- **Or:** a [GitHub private security advisory](https://github.com/<OWNER>/voiceflow/security/advisories/new)
+- **Or:** a [GitHub private security advisory](https://github.com/jgsystemsconsulting/jgs-voiceflow/security/advisories/new)
   (if you prefer to report through GitHub).
 
 Please include:
