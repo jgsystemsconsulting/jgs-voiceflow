@@ -29,10 +29,10 @@
 `VoiceFlow-Setup.exe` (**~700 MB**; the offline speech models are bundled, so the download is
 large but you can dictate with no internet afterward — it may take a few minutes).
 
-Run the installer (per-user; no administrator rights needed). **Windows may warn about an unknown
-publisher** the first time — choose **More info → Run anyway**; this is expected for a newly
-released app (see the [quickstart](docs/quickstart.md) for the exact screen). Optionally
-[verify your download](docs/verifying-downloads.md) first.
+Run the installer (per-user; no administrator rights needed). **Windows will warn about an unknown
+publisher** the first time — choose **More info → Run anyway**. VoiceFlow is a free release and is
+not code-signed yet, so this warning is expected (see the [quickstart](docs/quickstart.md) for the
+exact screen). You can [verify your download's checksum](docs/verifying-downloads.md) first.
 
 Full step-by-step walk-through (with screenshots): **[Quickstart →](docs/quickstart.md)**.
 Antivirus or SmartScreen questions: see [troubleshooting](docs/troubleshooting.md).
@@ -66,8 +66,9 @@ LLM, and fall back to the offline cleaner if none is configured. See the [FAQ](d
 
 ## Verifying your download
 
-Every release is **code-signed** and ships with a **SHA-256 checksum** so you can confirm the
-installer is genuine and untampered before running it. See
+Every release ships with a **SHA-256 checksum** so you can confirm the installer downloaded
+correctly and is untampered before running it. (VoiceFlow isn't code-signed yet — so always
+download from the official releases page and check the checksum.) See
 **[verifying downloads →](docs/verifying-downloads.md)**.
 
 ## Support & license

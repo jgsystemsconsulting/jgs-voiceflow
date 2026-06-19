@@ -4,20 +4,22 @@
 
 This is the most common first-run question, so here's the full picture.
 
-- **Why it happens.** VoiceFlow's installer is a native, compressed Windows binary, and it's newly
-  released. Two things can trigger a warning:
-  1. **SmartScreen "unknown publisher".** Microsoft SmartScreen builds *reputation* over time. A
-     brand-new code-signing certificate has no reputation yet, so SmartScreen may show
-     **"Windows protected your PC"** with an unknown-publisher message **even though the installer is
-     correctly signed**. As more people install VoiceFlow, this warning goes away on its own.
-  2. **Antivirus heuristics.** Some antivirus engines flag freshly released, compressed executables
-     as a precaution (a "false positive"), even when nothing is wrong.
+- **Why it happens.** VoiceFlow's installer is a native, compressed Windows binary, and it is a free
+  release that is **not code-signed** (a code-signing certificate is a paid, recurring cost). Two
+  things can trigger a warning:
+  1. **SmartScreen "unknown publisher".** Because the installer isn't signed, Microsoft SmartScreen
+     can't identify a publisher, so it shows **"Windows protected your PC"** with an
+     unknown-publisher message. This is expected for an unsigned app — it isn't a sign that anything
+     is wrong with the file.
+  2. **Antivirus heuristics.** Some antivirus engines flag freshly released, compressed, unsigned
+     executables as a precaution (a "false positive"), even when nothing is wrong.
 - **What to do.**
   - On the SmartScreen screen, click **More info → Run anyway**.
   - If your antivirus quarantines the installer, you can **allow/restore** it in your AV's
     quarantine or exclusions screen.
-  - If you want certainty *before* running it, [verify the download](verifying-downloads.md) — check
-    the SHA-256 checksum and confirm the signature is ours.
+  - For peace of mind, download only from the
+    [official releases page](https://github.com/<OWNER>/voiceflow/releases/latest) and
+    [verify the SHA-256 checksum](verifying-downloads.md) before running it.
 
 ## No microphone / wrong device
 

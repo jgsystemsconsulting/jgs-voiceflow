@@ -1,55 +1,37 @@
 # Verifying your download
 
-Every VoiceFlow release ships with a **SHA-256 checksum** and a **code signature** so you can confirm
-your `VoiceFlow-Setup.exe` is genuine and untampered before you run it. Both checks take under a
-minute in PowerShell.
+Every VoiceFlow release ships with a **SHA-256 checksum** so you can confirm your
+`VoiceFlow-Setup.exe` downloaded correctly and hasn't been tampered with before you run it. The
+check takes under a minute in PowerShell.
 
-## 1. Check the SHA-256 checksum
+> **Note: VoiceFlow is not code-signed yet.** This is a free release and does not (yet) carry a
+> paid code-signing certificate, so Windows will show an **"unknown publisher"** warning when you
+> run the installer (see [troubleshooting](troubleshooting.md)), and you **cannot** verify a
+> publisher signature. The SHA-256 checksum below is therefore the way to confirm your download is
+> intact and matches the official release. **Always download from the
+> [official releases page](https://github.com/<OWNER>/voiceflow/releases/latest)** — never from a
+> mirror or third-party site.
 
-Each release includes a `SHA256SUMS.txt` file alongside the installer. Download both, then in
-PowerShell (in the folder where you saved them):
+## Check the SHA-256 checksum
+
+Each release includes a `SHA256SUMS.txt` file alongside the installer. Download **both** from the
+official release, then in PowerShell (in the folder where you saved them):
 
 ```powershell
 Get-FileHash .\VoiceFlow-Setup.exe -Algorithm SHA256
 Get-Content .\SHA256SUMS.txt
 ```
 
-The hash printed by `Get-FileHash` must match the one in `SHA256SUMS.txt` (case-insensitive). If it
-doesn't match, **do not run the installer** — re-download it, and if it still doesn't match, report
-it (see [SECURITY](../SECURITY.md)).
+The hash printed by `Get-FileHash` must match the one in `SHA256SUMS.txt` (case-insensitive).
 
-## 2. Check the code signature
+## If the checksum doesn't match
 
-A valid signature proves the installer was signed by us and hasn't been modified since.
+If the hashes differ, **do not run the installer** — your download is corrupted or has been
+tampered with. Re-download from the
+[official releases page](https://github.com/<OWNER>/voiceflow/releases/latest); if it still doesn't
+match, please report it privately via [SECURITY](../SECURITY.md).
 
-**The quick way:** right-click `VoiceFlow-Setup.exe` → **Properties** → **Digital Signatures** tab.
-You should see a signature, and the signer name should be **`<CANONICAL-SIGNER-CN>`**.
-
-**The thorough way (PowerShell):**
-
-```powershell
-$s = Get-AuthenticodeSignature .\VoiceFlow-Setup.exe
-
-# (1) The signature must be valid:
-$s.Status        # must be: Valid
-
-# (2) The signer's common name must be ours:
-$s.SignerCertificate.GetNameInfo('SimpleName', $false)   # must be: <CANONICAL-SIGNER-CN>
-```
-
-**Both** must be true:
-
-1. `Status` is `Valid`, **and**
-2. the signer common name equals **`<CANONICAL-SIGNER-CN>`**.
-
-> A `Valid` status **alone is not enough** — *any* correctly-signed file shows `Valid`. The signer
-> identity is what proves it's *ours*. Note: check the **common name** as shown above; don't try to
-> match the full `SignerCertificate.Subject` string, which is a longer technical identifier
-> (`CN=…, O=…, C=…`) and won't equal a plain name.
-
-## If a check fails
-
-A bad checksum, a `NotSigned`/`UnknownError` status, or a *valid-but-wrong-signer* result all mean
-you should **not** run the file. Re-download from the
-[official releases page](https://github.com/<OWNER>/voiceflow/releases/latest); if it still fails,
-please report it privately via [SECURITY](../SECURITY.md).
+> Because the checksum file is published on the same release page as the installer, it confirms the
+> file is intact and matches what we published — it does not, on its own, prove who built it (that's
+> what a code signature would add). Downloading only from the official release page above is what
+> ties the file to us.

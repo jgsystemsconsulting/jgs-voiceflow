@@ -1,7 +1,7 @@
 # Screenshot manifest — capture before release
 
 The docs reference six images. **`tray-states.png` is present** (copied from the source repo). The
-other five **must be captured from a real signed install** before the public release goes live (they
+other five **must be captured from a real install** before the public release goes live (they
 can't be faked, and a couple show the actual SmartScreen/installer chrome).
 
 | File | Status | What it shows | Referenced by |
@@ -14,7 +14,7 @@ can't be faked, and a couple show the actual SmartScreen/installer chrome).
 | `overlay.png` | ⬜ TODO | The always-on-top recording overlay chip near the screen edge | (README hero / general) |
 
 **When capturing:**
-- Use the **signed** build (so `smartscreen.png` shows the real publisher behavior).
+- `smartscreen.png` should show the **real unsigned "unknown publisher"** dialog users will see.
 - Crop/resize for web.
 - **Scrub anything sensitive** — no certificate thumbprints, usernames, private file paths, or
   other private data visible in any screenshot.

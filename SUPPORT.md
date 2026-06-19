@@ -11,7 +11,7 @@ Most questions are already answered in the docs:
 - **[Troubleshooting](docs/troubleshooting.md)** — antivirus/SmartScreen warnings, no microphone,
   GPU not used, slow first dictation, and more.
 - **[Privacy](docs/privacy.md)** — what stays on your machine, and how to verify it.
-- **[Verifying downloads](docs/verifying-downloads.md)** — checksum and signature checks.
+- **[Verifying downloads](docs/verifying-downloads.md)** — how to check your download's SHA-256 checksum.
 
 ## Getting help
 

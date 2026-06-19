@@ -68,5 +68,7 @@ is the full ~700 MB (models are re-bundled); there's no smaller delta update yet
 
 ## Is the source code available?
 
-No — VoiceFlow is proprietary. The installer is **code-signed** so you can still confirm it's
-genuinely from us and untampered; see [verifying downloads](verifying-downloads.md).
+No — VoiceFlow is proprietary. It isn't code-signed yet (that's a paid certificate we may add
+later), so download only from the
+[official releases page](https://github.com/<OWNER>/voiceflow/releases/latest) and
+[verify the SHA-256 checksum](verifying-downloads.md) to confirm your copy is intact.

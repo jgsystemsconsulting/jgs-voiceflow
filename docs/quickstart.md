@@ -16,15 +16,14 @@ Go to the [latest release](https://github.com/<OWNER>/voiceflow/releases/latest)
 
 Double-click `VoiceFlow-Setup.exe`.
 
-> **Windows SmartScreen / "Windows protected your PC".** Because VoiceFlow is newly released, the
-> code-signing certificate hasn't built up reputation with Microsoft yet, so Windows may show a blue
-> **"Windows protected your PC — unknown publisher"** screen *even though the installer is signed*.
+> **Windows SmartScreen / "Windows protected your PC".** VoiceFlow is a free release and is **not
+> code-signed**, so Windows shows a blue **"Windows protected your PC — unknown publisher"** screen.
 > This is expected. Click **More info**, then **Run anyway**.
 >
 > ![SmartScreen "More info → Run anyway"](images/smartscreen.png)
 >
-> To confirm the installer is genuinely from us before running it, see
-> [verifying downloads](verifying-downloads.md). For antivirus warnings, see
+> To confirm your download is intact and matches the official release before running it, check its
+> [checksum](verifying-downloads.md). For antivirus warnings, see
 > [troubleshooting](troubleshooting.md).
 
 The installer is **per-user** (no administrator rights needed). It adds a Start-Menu shortcut and
