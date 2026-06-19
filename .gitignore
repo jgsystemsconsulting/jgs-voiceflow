@@ -1,11 +1,82 @@
-# Docs-only public repo. Nothing to build. Block accidental drops of source/artifacts.
+# jgs-voiceflow — PUBLIC, docs-only release repo.
+#
+# This repo ships ONLY end-user documentation + the GitHub Pages landing site
+# (docs/index.html, docs/fonts/*, docs/images/*, docs/products/*.yaml). The
+# proprietary source, build tooling, and the installer artifact are NEVER here
+# (the installer is attached to the GitHub Release; the source stays private).
+#
+# These rules are a SAFETY NET: nothing below should ever appear in this repo,
+# but because this folder sits alongside dev checkouts, tooling can drop junk
+# here. Block it so it can't be committed by accident.
+#
+# NOTE: do NOT add blanket rules that would catch legitimate site assets —
+# the landing page needs docs/fonts/*.woff2, docs/images/*.png, *.html,
+# docs/.nojekyll, and docs/products/**/*.yaml. Those are intentionally tracked.
+
+# --- Secrets (critical for a public repo) ---
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.pfx
+*.p12
+credentials.json
+*.thumbprint
+
+# --- Proprietary source / build tooling (must never leak here) ---
 *.py
+*.pyc
+*.pyd
 *.ps1
+*.psm1
 *.iss
 *.spec
-*.exe
-*.bin
-__pycache__/
-.venv/
-Output/
+pyproject.toml
+setup.py
+setup.cfg
+
+# --- Build / packaging artifacts ---
 dist/
+build/
+Output/
+*.egg-info/
+*.exe
+*.msi
+*.bin
+*.ct2
+*.onnx
+*.gguf
+# Whisper model weights (huge; bundled into the installer, never committed)
+models/
+
+# --- Python / tooling caches ---
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.tox/
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Dev / agent tooling that tends to appear under the GitHub folder ---
+.claude/
+.goals/
+.playwright-mcp/
+node_modules/
+
+# --- OS / editor cruft ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*~
