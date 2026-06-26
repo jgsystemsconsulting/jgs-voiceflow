@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VoiceFlow guide: setup, modes, and scenarios</title>
+<meta name="description" content="The full how-to guide for VoiceFlow on Windows: how it works, setup from zero to dictating, output modes, the code mode, real-day scenarios, and configuration.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0b'/%3E%3Ctext x='16' y='23' font-family='monospace' font-size='22' font-weight='700' fill='%23f4f2ec' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://jgsystemsconsulting.github.io/jgs-voiceflow/guide.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VoiceFlow guide: setup, modes, and scenarios">
+<meta property="og:description" content="How VoiceFlow works, setup from zero to dictating, the code mode, real-day scenarios, and configuration.">
+<meta property="og:url" content="https://jgsystemsconsulting.github.io/jgs-voiceflow/guide.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VoiceFlow guide: setup, modes, and scenarios">
+<meta name="twitter:description" content="How VoiceFlow works, setup from zero to dictating, the code mode, real-day scenarios, and configuration.">
+<style>
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('./fonts/inter-400.woff2') format('woff2'); }
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('./fonts/inter-600.woff2') format('woff2'); }
+  @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('./fonts/jetbrains-mono-400.woff2') format('woff2'); }
+  @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('./fonts/jetbrains-mono-700.woff2') format('woff2'); }
+  :root {
+    --ink: #0a0a0b; --ink-2: #111113; --ink-3: #16171a;
+    --line: #2a2d33; --line-2: #3a3e46;
+    --mute: #6b7078; --mute-2: #8b9099;
+    --text: #c7ccd3; --text-hi: #e8ebf0;
+    --paper: #f4f2ec; --paper-ink: #0a0a0b; --accent: #8fd0c4;
+    --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    --sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --pad-x: clamp(24px, 4vw, 80px); --pad-section: clamp(40px, 5vw, 72px);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ink); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.7; }
+  .wrap { max-width: 920px; margin: 0 auto; padding-left: var(--pad-x); padding-right: var(--pad-x); }
+  a { color: var(--text-hi); text-decoration: none; border-bottom: 1px solid var(--line-2); }
+  a:hover { border-bottom-color: var(--paper); }
+  :focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: var(--pad-x); top: 10px; z-index: 10; background: var(--paper); color: var(--paper-ink); padding: 8px 14px; border: 0; }
+  .masthead { border-bottom: 1px solid var(--line); }
+  .masthead .wrap {
+    display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: baseline; max-width: 1200px;
+    padding-top: 14px; padding-bottom: 14px;
+    font-family: var(--mono); font-size: 0.625rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute);
+  }
+  .masthead b { color: var(--text-hi); }
+  .masthead .nav { margin-left: auto; display: flex; gap: 18px; }
+  .masthead .nav a { border: 0; color: var(--mute); }
+  .masthead .nav a:hover { color: var(--text-hi); }
+  header.hero { border-bottom: 1px solid var(--line); }
+  header.hero .wrap { padding-top: var(--pad-section); padding-bottom: var(--pad-section); }
+  .label { font-family: var(--mono); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute); margin: 0 0 16px; }
+  h1 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.02em; font-size: clamp(1.9rem, 4.5vw, 2.9rem); line-height: 1.08; margin: 0 0 16px; color: var(--text-hi); }
+  h2 { font-family: var(--mono); font-weight: 700; font-size: clamp(1.2rem, 2.4vw, 1.5rem); margin: 48px 0 14px; color: var(--text-hi); padding-top: 8px; border-top: 1px solid var(--line); }
+  h2:first-of-type { border-top: 0; padding-top: 0; }
+  h3 { font-family: var(--mono); font-weight: 700; font-size: 1rem; margin: 28px 0 8px; color: var(--text-hi); }
+  .lede { font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--mute-2); max-width: 62ch; }
+  p { color: var(--text); max-width: 72ch; }
+  ul, ol { color: var(--text); max-width: 72ch; padding-left: 1.3em; }
+  li { margin: 6px 0; }
+  code { font-family: var(--mono); font-size: 0.9em; color: var(--text-hi); }
+  pre { font-family: var(--mono); font-size: 0.85rem; line-height: 1.6; background: var(--ink-2); border: 1px solid var(--line); padding: 18px 20px; overflow-x: auto; color: var(--text); white-space: pre-wrap; word-break: break-word; }
+  pre .said { color: var(--mute); }
+  pre .got { color: var(--accent); }
+  table { border-collapse: collapse; width: 100%; margin-top: 8px; font-size: 0.95rem; }
+  th, td { border: 1px solid var(--line); padding: 11px 15px; text-align: left; vertical-align: top; }
+  th { font-family: var(--mono); font-weight: 700; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); }
+  .toc { font-family: var(--mono); font-size: 0.8rem; display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 28px; }
+  .toc a { color: var(--mute); border: 0; }
+  .toc a:hover { color: var(--text-hi); }
+  .scn { border: 1px solid var(--line); background: var(--ink-2); padding: 22px 24px; margin: 16px 0; }
+  .scn h3 { margin-top: 0; }
+  blockquote { margin: 14px 0; padding: 12px 18px; border-left: 2px solid var(--line-2); background: var(--ink-2); color: var(--mute-2); }
+  footer { color: var(--mute); font-size: 0.85rem; border-top: 1px solid var(--line); }
+  footer .wrap { padding-top: 28px; padding-bottom: 44px; max-width: 1200px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <span>CLASSIFICATION: <b>PUBLIC</b></span>
+    <span>DOC-ID: <b>JGS-VOICEFLOW · GUIDE</b></span>
+    <span>REV <b>0.2.0</b></span>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="docs.html">Docs</a>
+      <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="label">§ Guide</p>
+    <h1>The VoiceFlow guide</h1>
+    <p class="lede">Everything from how the app works to a first-run setup, the output modes, the
+    code mode for AI coders, real-day scenarios, and configuration.</p>
+    <nav class="toc" aria-label="Contents">
+      <a href="#how">How it works</a>
+      <a href="#setup">Setup</a>
+      <a href="#modes">Modes</a>
+      <a href="#code">Code mode</a>
+      <a href="#scenarios">Scenarios</a>
+      <a href="#config">Configuration</a>
+      <a href="#install">Install options</a>
+      <a href="#reference">Reference card</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap" style="padding-top: var(--pad-section); padding-bottom: var(--pad-section);">
+
+    <h2 id="how">How it works (the 30-second model)</h2>
+    <p>The whole app is one simple loop:</p>
+    <ol>
+      <li><b>Hold the hotkey</b> (default <code>Ctrl+Space</code>). A small overlay shows it is listening.</li>
+      <li><b>Speak</b> your sentence or paragraph.</li>
+      <li><b>Release the key.</b> Recording stops.</li>
+      <li><b>It transcribes on your device</b> (no upload), then <b>cleans</b> the text per the mode you picked.</li>
+      <li><b>It pastes</b> the result at your cursor, in whatever app has focus.</li>
+    </ol>
+    <p>That is it. There is no window to switch to, no "send" button, no account. It lives in the
+    system tray and waits for the hotkey.</p>
+    <p><b>Two ways to trigger</b> (set in Settings):</p>
+    <ul>
+      <li><b>Hold</b> (default): record while the key is held, transcribe on release. Best for quick bursts.</li>
+      <li><b>Toggle</b>: tap once to start, tap again to stop. Best for longer, hands-free dictation.</li>
+    </ul>
+
+    <h2 id="setup">Setup walkthrough: from zero to dictating</h2>
+    <h3>Step 1. Install</h3>
+    <p>Run the Windows installer (<code>VoiceFlow-Setup.exe</code>). It bundles the speech models, so
+    it works with no internet and nothing else to download. VoiceFlow appears in the system tray.</p>
+    <h3>Step 2. First run auto-configures</h3>
+    <p>The first time it launches, VoiceFlow profiles your PC and picks the best on-device speech
+    engine and settings for your hardware automatically. On an English-language machine with the
+    Parakeet model bundled, it selects Parakeet for the best speed and accuracy. Nothing is asked of
+    you.</p>
+    <h3>Step 3. Check your microphone</h3>
+    <p>Hold <code>Ctrl+Space</code>, say a test sentence, release. The text should appear wherever
+    your cursor is. If nothing appears, open a text field first (so there is somewhere to paste), and
+    confirm your speaking microphone is the Windows default input device.</p>
+    <h3>Step 4. Pick a mode</h3>
+    <p>Right-click the tray icon and choose a mode. Leave it on <code>clean</code> for general
+    dictation, or switch to <code>code</code> when you are dictating to an AI coding assistant.</p>
+    <h3>Step 5. Make it yours (optional)</h3>
+    <p>Open Settings from the tray menu to rebind the hotkey, switch between hold and toggle, choose
+    the speech engine, or turn on a local LLM for the <code>summary</code> and <code>prompt</code>
+    modes. Add your own dictionary terms in the config file. There is no sign-in and no configuration
+    required to start.</p>
+
+    <h2 id="modes">Output modes</h2>
+    <p>Every capture runs through a mode that decides how the raw transcript is turned into text.
+    Switch modes per capture from the tray menu, or set a default in Settings. Five modes ship:</p>
+    <table>
+      <thead><tr><th>Mode</th><th>What it does</th><th>Needs an LLM?</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr><td><code>raw</code></td><td>Verbatim transcript, lightly punctuated. Nothing removed.</td><td>No</td><td>Quoting exactly what was said</td></tr>
+        <tr><td><code>clean</code> <b>(default)</b></td><td>Removes filler, collapses repeats, fixes spacing and capitalisation.</td><td>No</td><td>Everyday dictation</td></tr>
+        <tr><td><code>summary</code></td><td>Condenses rambling speech into a tight brief.</td><td>Yes</td><td>A spoken brain-dump into a note</td></tr>
+        <tr><td><code>prompt</code></td><td>Reformats speech into a structured LLM prompt.</td><td>Yes</td><td>Crafting a prompt by voice</td></tr>
+        <tr><td><code>code</code></td><td>Trims politeness, keeps code words, fixes programming terms.</td><td>No</td><td>Dictating to Claude Code / Cursor</td></tr>
+      </tbody>
+    </table>
+    <p>The non-LLM modes (<code>raw</code>, <code>clean</code>, <code>code</code>) are fully offline
+    and instant. The LLM modes (<code>summary</code>, <code>prompt</code>) are optional and only run
+    if you point VoiceFlow at a local model (such as Ollama) or a cloud endpoint you configure. Out
+    of the box, no LLM is configured, so everything is on-device.</p>
+    <h3>Before and after, every mode</h3>
+    <pre><span class="said">raw   spoken:</span> um so basically i need to add a a login function you know
+<span class="got">      output:</span> Um so basically i need to add a a login function you know.
+
+<span class="said">clean spoken:</span> um so basically i need to add a a login function you know
+<span class="got">      output:</span> So i need to add a login function.
+
+<span class="said">code  spoken:</span> um can you please add a dunder init to the fast api app
+<span class="got">      output:</span> Add a __init__ to the FastAPI app.</pre>
+    <p>The <code>summary</code> and <code>prompt</code> examples below are illustrative and need a
+    local or cloud LLM:</p>
+    <pre><span class="said">summary spoken:</span> so I was thinking we should maybe look at the caching layer
+                because it keeps timing out and users are complaining and it
+                might be the redis connection pool or something
+<span class="got">        output:</span> Investigate caching timeouts; likely the Redis connection pool.
+
+<span class="said">prompt  spoken:</span> write me something that takes a csv and returns the average per column
+<span class="got">        output:</span> Role: Python developer
+                Task: Write a function that reads a CSV and returns the average per column.
+                Constraints: none
+                Context: none</pre>
+
+    <h2 id="code">The code mode and the code-aware dictionary</h2>
+    <p>This is the feature built specifically for dictating to an AI coding assistant. Two things
+    happen in <code>code</code> mode, both instant and on-device:</p>
+    <ol>
+      <li><b>Polite-prefix trimming.</b> Spoken requests start with filler and courtesy ("um, can you
+      please..."). Code mode strips that and leaves the imperative, which is exactly what an AI
+      assistant wants.</li>
+      <li><b>Code-aware term fixing.</b> A built-in dictionary rewrites spoken programming terms into
+      the symbols and names you meant. It keeps words that are meaningful in code (like "like",
+      "right", "actually") instead of deleting them as filler.</li>
+    </ol>
+    <p>Verified examples (literal output):</p>
+    <pre><span class="said">say:</span> write a test for the postgres connection
+<span class="got">get:</span> Write a test for the PostgreSQL connection.
+
+<span class="said">say:</span> create a dot py file with a dunder init
+<span class="got">get:</span> Create a .py file with a __init__.
+
+<span class="said">say:</span> refactor this like the right way using type script
+<span class="got">get:</span> Refactor this like the right way using TypeScript.
+
+<span class="said">say:</span> i want you to add a triple equals check not equal to null
+<span class="got">get:</span> Add a === check != to null.</pre>
+    <h3>Built-in terms (v1)</h3>
+    <table>
+      <thead><tr><th>You say</th><th>You get</th></tr></thead>
+      <tbody>
+        <tr><td>dunder init</td><td><code>__init__</code></td></tr>
+        <tr><td>arrow function / fat arrow</td><td><code>=&gt;</code></td></tr>
+        <tr><td>double equals / triple equals / not equal</td><td><code>==</code> / <code>===</code> / <code>!=</code></td></tr>
+        <tr><td>dot py / dot ts / dot js / dot json / dot md</td><td><code>.py</code> / <code>.ts</code> / <code>.js</code> / <code>.json</code> / <code>.md</code></td></tr>
+        <tr><td>fast api</td><td><code>FastAPI</code></td></tr>
+        <tr><td>postgres</td><td><code>PostgreSQL</code></td></tr>
+        <tr><td>node js</td><td><code>Node.js</code></td></tr>
+        <tr><td>type script / java script</td><td><code>TypeScript</code> / <code>JavaScript</code></td></tr>
+        <tr><td>git hub</td><td><code>GitHub</code></td></tr>
+      </tbody>
+    </table>
+    <p>The code dictionary merges with your personal dictionary in the config file, and your entries
+    win. Add the library names and jargon your stack uses, and VoiceFlow will fix them every time. It
+    applies in <b>all</b> modes, not just <code>code</code>, so even a <code>clean</code> capture
+    gets your terms fixed. Code mode adds the politeness trimming on top.</p>
+
+    <h2 id="scenarios">Scenarios: VoiceFlow in a real day</h2>
+    <div class="scn">
+      <h3>A. Dictating to Claude Code (the headline use)</h3>
+      <p>You are in Claude Code and want a new endpoint. You switch VoiceFlow to <code>code</code>
+      mode, click into the chat box, hold <code>Ctrl+Space</code>, and say:</p>
+      <blockquote>"um can you please add a dunder init to the fast api app and a dot py file for the routes"</blockquote>
+      <p>You release the key. This appears in the chat box, ready to send:</p>
+      <blockquote>Add a __init__ to the FastAPI app and a .py file for the routes.</blockquote>
+      <p>No filler, the symbols are right, and you never touched the keyboard. You hit enter and keep moving.</p>
+    </div>
+    <div class="scn">
+      <h3>B. Writing a pull-request description (clean mode)</h3>
+      <p>You finished a change and need a PR body. In <code>clean</code> mode you hold the key and
+      talk through what you did in plain speech, including the inevitable "ums" and restarts.
+      VoiceFlow drops the filler, fixes the punctuation, and pastes a readable paragraph into the PR
+      description box. You edit one word and submit.</p>
+    </div>
+    <div class="scn">
+      <h3>C. Capturing a rambling idea as a tidy summary (summary mode)</h3>
+      <p>A thought hits you mid-task. With a local model configured, you switch to <code>summary</code>
+      mode, hold the key, and ramble for thirty seconds about a caching problem. VoiceFlow condenses
+      it to a one-line note you paste into your issue tracker, instead of a wall of spoken text.</p>
+    </div>
+    <div class="scn">
+      <h3>D. Hands-free notes while reading (toggle mode)</h3>
+      <p>You are reading documentation and want to take notes without holding a key. You set the
+      hotkey to toggle mode in Settings. Now you tap once to start, talk as you read, and tap again to
+      stop. Your notes land in your editor in <code>clean</code> mode.</p>
+    </div>
+
+    <h2 id="config">Configuration and customisation</h2>
+    <p>VoiceFlow keeps a small config file (TOML) in your Windows app-data folder
+    (<code>%APPDATA%\VoiceFlow\</code>). Highlights:</p>
+    <ul>
+      <li><b>Output mode:</b> the default mode for new captures (<code>raw</code>, <code>clean</code>, <code>summary</code>, <code>prompt</code>, <code>code</code>).</li>
+      <li><b>Hotkeys:</b> record (default <code>Ctrl+Space</code>), paste-again (<code>Ctrl+Shift+V</code>), cancel (<code>Esc</code>); all rebindable in Settings.</li>
+      <li><b>Trigger style:</b> <code>hold</code> or <code>toggle</code>.</li>
+      <li><b>Speech engine:</b> the on-device provider and model. Auto-configured on first run; changeable in Settings.</li>
+      <li><b>LLM provider:</b> <code>none</code> (default, fully offline), a local OpenAI-compatible endpoint, or a cloud endpoint. Only used by <code>summary</code> and <code>prompt</code>.</li>
+      <li><b>Personal dictionary:</b> your own spoken-term to text mappings, merged on top of the built-in code dictionary (your entries win).</li>
+    </ul>
+    <p>If VoiceFlow keeps mis-hearing a library name, add it to your dictionary and it will be fixed
+    in every capture from then on.</p>
+
+    <h2 id="install">Install options</h2>
+    <p><b>Quick install (recommended for users).</b> Download and run
+    <code>VoiceFlow-Setup.exe</code> from the
+    <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest">latest release</a>.
+    Models are bundled; it works offline immediately.</p>
+    <p><b>From source (for developers).</b> VoiceFlow is proprietary and the source is not public, so
+    there is no source install for the public release. The installer is the supported path.</p>
+
+    <h2 id="reference">At a glance (reference card)</h2>
+    <ul>
+      <li><b>Platform:</b> Windows 10/11 (64-bit).</li>
+      <li><b>Speech:</b> on-device (NVIDIA Parakeet or Whisper), CPU-friendly, no GPU required.</li>
+      <li><b>Privacy:</b> local-only by default, zero network egress.</li>
+      <li><b>Modes:</b> raw, clean, summary, prompt, code.</li>
+      <li><b>Trigger:</b> push-to-talk hold or toggle, fully rebindable.</li>
+      <li><b>Pastes into:</b> any text field in any Windows app.</li>
+      <li><b>For AI coders:</b> <code>code</code> mode plus a built-in, extensible programming dictionary.</li>
+      <li><b>Cost:</b> free, no account.</li>
+    </ul>
+    <p style="margin-top:32px"><a href="docs.html">Continue to the docs hub</a> for quickstart, FAQ,
+    troubleshooting, privacy, and download verification, or
+    <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest">download VoiceFlow</a>.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>&copy; 2026 JG Systems Consulting Ltd. "VoiceFlow" and "JG Systems Consulting" are trademarks
+    of JG Systems Consulting Ltd. VoiceFlow is proprietary software, free to use under its
+    <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/LICENSE">LICENSE</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>

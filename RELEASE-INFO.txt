@@ -1,8 +1,8 @@
 Product:    VoiceFlow
 Repo:       jgs-voiceflow (public, docs-only release repo)
-Version:    0.1.0
-Tag:        v0.1.0
-Built:      2026-06-19T13:05:11Z
+Version:    0.2.0
+Tag:        v0.2.0
+Built:      2026-06-26T00:00:00Z
 Publisher:  JG Systems Consulting Ltd.
 
 Note: This is the public, customer-facing release repository. The proprietary

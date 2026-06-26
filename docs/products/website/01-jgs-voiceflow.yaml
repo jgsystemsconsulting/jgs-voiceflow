@@ -1,6 +1,6 @@
-# Website content — jgs-voiceflow
+# Website content: jgs-voiceflow
 # Intended for AI ingestion. Maintenance decisions (layout, copy tone, navigation) are made by the consuming AI.
-# NOTE: jgs-voiceflow is a standalone Windows desktop application — no Cameo/CATIA Magic or MCP-bridge
+# NOTE: jgs-voiceflow is a standalone Windows desktop application (no Cameo/CATIA Magic or MCP-bridge)
 # dependency. Proprietary, free to use. No pricing in this file (per the website-content process).
 
 product:
@@ -13,16 +13,16 @@ product:
   repository: https://github.com/jgsystemsconsulting/jgs-voiceflow
 
   tagline: >
-    Push-to-talk voice dictation for Windows. Hold a hotkey, speak, release — transcribed
+    Push-to-talk voice dictation for Windows. Hold a hotkey, speak, release, transcribed
     on-device and pasted at your cursor. Local-first, private, free to use.
 
   summary: >
     VoiceFlow turns speech into clean, ready-to-use text anywhere on Windows. Hold a global
-    hotkey, speak, release — it transcribes locally with Whisper (faster-whisper), removes filler
+    hotkey, speak, release, and it transcribes locally with Whisper (faster-whisper), removes filler
     and fixes punctuation, then pastes the result at your cursor, clipboard-safe. It lives in the
-    system tray with raw/clean/summary/prompt output modes, a custom dictionary, and searchable
+    system tray with raw/clean/summary/prompt/code output modes, a custom dictionary, and searchable
     local history. Local-first and private by default: on the standard path, no audio or text
-    leaves the machine — cloud speech-to-text and cloud LLM cleanup are strictly opt-in. The
+    leaves the machine; cloud speech-to-text and cloud LLM cleanup are strictly opt-in. The
     installer bundles the speech models, so it works fully offline with no account and no
     subscription. First launch profiles the machine's hardware and picks the optimal local model
     automatically.
@@ -30,7 +30,7 @@ product:
   problem: >
     Cloud dictation tools are fast but send your voice off your machine, require accounts and
     subscriptions, and stop working offline. Privacy-conscious users, and anyone on a locked-down
-    or air-gapped machine, need accurate dictation that runs entirely on-device — with no upload,
+    or air-gapped machine, need accurate dictation that runs entirely on-device, with no upload,
     no login, and no recurring cost.
 
   approach:
@@ -42,20 +42,21 @@ product:
       - step: clean
         does: Removes filler ("um", "uh", false starts) and fixes grammar/punctuation via a built-in offline cleaner; optional local or cloud LLM for summary/prompt modes.
       - step: paste
-        does: Inserts the result at the cursor, clipboard-safe — the previous clipboard is restored afterwards.
+        does: Inserts the result at the cursor, clipboard-safe; the previous clipboard is restored afterwards.
     differentiators:
-      - Fully local by default — zero audio/text egress on the standard path, and you can verify it.
-      - Works offline out of the box — the installer bundles the speech models; no internet, account, or subscription.
-      - Hardware-aware — first run benchmarks the machine and selects the optimal on-device model automatically.
-      - Free to use — proprietary, no cost for personal or internal business use.
+      - Fully local by default: zero audio/text egress on the standard path, and you can verify it.
+      - Works offline out of the box: the installer bundles the speech models; no internet, account, or subscription.
+      - Hardware-aware: first run benchmarks the machine and selects the optimal on-device model automatically.
+      - Built for AI coders: a dedicated code mode and a code-aware dictionary turn speech into clean prompts for Claude Code and Cursor.
+      - Free to use: proprietary, no cost for personal or internal business use.
 
   personas:
     - role: Writer / knowledge worker
       use_case: Dictate notes, messages, and drafts anywhere, with clean punctuated output at the cursor.
     - role: Developer
-      use_case: Speak commit messages, prompts, and docs without breaking flow; reformat speech into structured prompts.
+      use_case: Dictate to Claude Code or Cursor in code mode; speak commit messages, prompts, and docs without breaking flow.
     - role: Privacy-conscious user
-      use_case: Get accurate dictation with no audio ever sent to the cloud — verifiable, offline.
+      use_case: Get accurate dictation with no audio ever sent to the cloud: verifiable and offline.
     - role: Accessibility user
       use_case: Voice-driven text entry across all Windows apps, no admin rights required.
 
@@ -65,7 +66,9 @@ product:
     - feature: On-device transcription
       role: Whisper STT runs locally; cloud STT is opt-in only.
     - feature: Output modes
-      role: raw / clean (default) / summary / prompt, switchable per capture.
+      role: raw / clean (default) / summary / prompt / code, switchable per capture.
+    - feature: Code mode + code-aware dictionary
+      role: Rule-based code mode trims politeness and fixes programming terms (no LLM); built-in dictionary applies in every mode and merges with the user's terms.
     - feature: Offline cleanup
       role: Built-in rule-based cleaner; optional local/cloud LLM for richer modes.
     - feature: Tray app + overlay

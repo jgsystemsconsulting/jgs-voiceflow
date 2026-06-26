@@ -3,21 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VoiceFlow — On-device push-to-talk voice dictation for Windows</title>
-<meta name="description" content="VoiceFlow: push-to-talk voice dictation for Windows. Hold a hotkey, speak, release — transcribed on-device with Whisper and pasted at your cursor. Local-first, private, free to use.">
-<!-- Inline data-URI favicon (no external request) — square "V" mark in brand ink/paper. -->
+<title>VoiceFlow: private on-device voice dictation for Windows</title>
+<meta name="description" content="Push-to-talk dictation for Windows. On-device speech-to-text, zero egress, and a code mode that turns speech into clean prompts for AI coding assistants.">
+<!-- Inline data-URI favicon (no external request): square "V" mark in brand ink/paper. -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0b'/%3E%3Ctext x='16' y='23' font-family='monospace' font-size='22' font-weight='700' fill='%23f4f2ec' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
 <link rel="canonical" href="https://jgsystemsconsulting.github.io/jgs-voiceflow/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="VoiceFlow — On-device voice dictation for Windows">
-<meta property="og:description" content="Hold a hotkey, speak, release. Transcribed locally, pasted at your cursor. Private by default, free to use.">
+<meta property="og:title" content="VoiceFlow: on-device voice dictation for Windows">
+<meta property="og:description" content="Talk, it types, nothing leaves your machine. On-device dictation with a code mode for Claude Code and Cursor.">
 <meta property="og:url" content="https://jgsystemsconsulting.github.io/jgs-voiceflow/">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VoiceFlow — On-device voice dictation for Windows">
-<meta name="twitter:description" content="Hold a hotkey, speak, release. Transcribed locally, pasted at your cursor. Private by default, free to use.">
+<meta name="twitter:title" content="VoiceFlow: on-device voice dictation for Windows">
+<meta name="twitter:description" content="Talk, it types, nothing leaves your machine. On-device dictation with a code mode for Claude Code and Cursor.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "VoiceFlow",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Windows 10, Windows 11 (64-bit)",
+  "description": "Push-to-talk voice dictation for Windows. Hold a hotkey, speak, release: VoiceFlow transcribes on-device, cleans the text, and pastes it at your cursor. Local-first and private by default, with a code mode for dictating to AI coding assistants. Free to use.",
+  "url": "https://jgsystemsconsulting.github.io/jgs-voiceflow/",
+  "downloadUrl": "https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest",
+  "softwareVersion": "0.2.0",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "publisher": { "@type": "Organization", "name": "JG Systems Consulting Ltd." }
+}
+</script>
 <style>
-  /* JGS brand & design system — dark engineering drafting-document aesthetic.
-     Self-hosted fonts (JetBrains Mono + Inter, latin subset) under docs/fonts/ —
+  /* JGS brand & design system: dark engineering drafting-document aesthetic.
+     Self-hosted fonts (JetBrains Mono + Inter, latin subset) under docs/fonts/:
      no third-party assets / CDN / tracking. */
   @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('./fonts/inter-400.woff2') format('woff2'); }
   @font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('./fonts/inter-600.woff2') format('woff2'); }
@@ -29,12 +44,13 @@
     --mute: #6b7078; --mute-2: #8b9099;
     --text: #c7ccd3; --text-hi: #e8ebf0;
     --paper: #f4f2ec; --paper-ink: #0a0a0b;
+    --accent: #8fd0c4;
     --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
     --sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
     --pad-x: clamp(24px, 4vw, 80px); --pad-section: clamp(48px, 6vw, 96px);
   }
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
   body {
     margin: 0; background: var(--ink); color: var(--text);
     font-family: var(--sans); font-size: 16px; line-height: 1.7;
@@ -43,6 +59,8 @@
   a { color: var(--text-hi); text-decoration: none; border-bottom: 1px solid var(--line-2); }
   a:hover { border-bottom-color: var(--paper); }
   :focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: var(--pad-x); top: 10px; z-index: 10; background: var(--paper); color: var(--paper-ink); padding: 8px 14px; border: 0; }
 
   /* Masthead */
   .masthead { border-bottom: 1px solid var(--line); }
@@ -53,6 +71,9 @@
     letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute);
   }
   .masthead b { color: var(--text-hi); font-weight: 700; }
+  .masthead .nav { margin-left: auto; display: flex; gap: 18px; }
+  .masthead .nav a { border: 0; color: var(--mute); }
+  .masthead .nav a:hover { color: var(--text-hi); }
 
   /* Sections */
   section { border-bottom: 1px solid var(--line); }
@@ -64,16 +85,16 @@
   }
   h1 {
     font-family: var(--mono); font-weight: 700; letter-spacing: -0.02em;
-    font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.05; margin: 0 0 18px;
+    font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.05; margin: 0 0 18px;
     color: var(--text-hi);
   }
   h2 {
     font-family: var(--mono); font-weight: 700; letter-spacing: -0.01em;
     font-size: clamp(1.25rem, 2.4vw, 1.6rem); margin: 0 0 14px; color: var(--text-hi);
   }
-  .lede { font-size: clamp(1rem, 1.6vw, 1.15rem); color: var(--mute-2); max-width: 60ch; }
+  .lede { font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--mute-2); max-width: 62ch; }
   p { color: var(--mute-2); }
-  p.body { color: var(--text); }
+  p.body { color: var(--text); max-width: 70ch; }
 
   /* Buttons */
   .btns { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
@@ -87,17 +108,24 @@
   .btn:hover { border-color: var(--paper); }
   .btn-primary { background: var(--paper); color: var(--paper-ink); border-color: var(--paper); }
 
+  /* Proof-point row under the hero */
+  .proof { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 40px; grid-template-columns: repeat(3, 1fr); }
+  .proof .cell { background: var(--ink); padding: 22px 24px; }
+  .proof h3 { font-family: var(--mono); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0 8px; color: var(--accent); }
+  .proof p { margin: 0; font-size: 0.92rem; color: var(--text); }
+
+  /* Pipeline diagram */
+  .pipe { margin-top: 8px; border: 1px solid var(--line); background: var(--ink-2); padding: 28px 24px; overflow-x: auto; }
+  .pipe svg { display: block; width: 100%; min-width: 560px; height: auto; }
+  .pipe .pbox { fill: var(--ink-3); stroke: var(--line-2); }
+  .pipe .ptext { fill: var(--text-hi); font-family: var(--mono); font-size: 13px; font-weight: 700; }
+  .pipe .parrow { stroke: var(--mute); stroke-width: 1.5; fill: none; }
+  .pipe .phead { fill: var(--mute); }
+
   /* Grid-of-cells */
-  .grid {
-    display: grid; gap: 1px; background: var(--line);
-    border: 1px solid var(--line); margin-top: 8px;
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .grid { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 8px; grid-template-columns: repeat(2, 1fr); }
   .cell { background: var(--ink); padding: 22px 24px; }
-  .cell h3 {
-    font-family: var(--mono); font-weight: 700; font-size: 0.95rem;
-    margin: 0 0 8px; color: var(--text-hi); letter-spacing: -0.01em;
-  }
+  .cell h3 { font-family: var(--mono); font-weight: 700; font-size: 0.95rem; margin: 0 0 8px; color: var(--text-hi); letter-spacing: -0.01em; }
   .cell p { margin: 0; font-size: 0.95rem; }
 
   /* Numbered steps */
@@ -106,6 +134,16 @@
   .step .n { font-family: var(--mono); font-weight: 700; font-size: 3rem; line-height: 1; color: var(--line-2); min-width: 2ch; }
   .step .t h3 { font-family: var(--mono); font-weight: 700; font-size: 0.95rem; margin: 0 0 6px; color: var(--text-hi); }
   .step .t p { margin: 0; font-size: 0.95rem; }
+
+  /* Code transcript blocks (spoken -> output) */
+  .xform { display: grid; gap: 16px; margin-top: 8px; grid-template-columns: repeat(2, 1fr); }
+  .xform pre {
+    margin: 0; font-family: var(--mono); font-size: 0.85rem; line-height: 1.6;
+    background: var(--ink-2); border: 1px solid var(--line); padding: 18px 20px;
+    white-space: pre-wrap; word-break: break-word; color: var(--text);
+  }
+  .xform .said { color: var(--mute); }
+  .xform .got { color: var(--accent); }
 
   /* Drafting-sheet panel */
   .sheet {
@@ -131,95 +169,209 @@
   table { border-collapse: collapse; width: 100%; margin-top: 8px; font-size: 0.95rem; }
   th, td { border: 1px solid var(--line); padding: 12px 16px; text-align: left; vertical-align: top; }
   th { font-family: var(--mono); font-weight: 700; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); }
-  td code, p code, .step code { font-family: var(--mono); font-size: 0.9em; color: var(--text-hi); }
+  td code, p code, .step code, li code { font-family: var(--mono); font-size: 0.9em; color: var(--text-hi); }
 
   footer { color: var(--mute); font-size: 0.85rem; }
   footer .wrap { padding-top: 32px; padding-bottom: 48px; }
 
   @media (max-width: 860px) {
-    .grid { grid-template-columns: 1fr; }
+    .grid, .proof, .xform { grid-template-columns: 1fr; }
     .step { flex-direction: column; gap: 6px; }
     .step .n { font-size: 2rem; }
   }
   @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
     * { transition: none !important; animation: none !important; }
   }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="masthead">
   <div class="wrap">
     <span>CLASSIFICATION: <b>PUBLIC</b></span>
     <span>LICENCE: <b>PROPRIETARY · FREE TO USE</b></span>
     <span>DOC-ID: <b>JGS-VOICEFLOW</b></span>
-    <span>REV <b>0.1.0</b></span>
-    <span>PLATFORM: <b>WINDOWS 10/11 x64</b></span>
+    <span>REV <b>0.2.0</b></span>
+    <nav class="nav" aria-label="Primary">
+      <a href="#modes">Modes</a>
+      <a href="#code">Code mode</a>
+      <a href="guide.html">Guide</a>
+      <a href="docs.html">Docs</a>
+    </nav>
   </div>
 </header>
 
-<main>
+<main id="main">
   <section>
     <div class="wrap sec">
-      <p class="label">§01 — Product</p>
-      <h1>VoiceFlow</h1>
-      <p class="lede">Push-to-talk voice dictation for Windows. Hold a hotkey, speak, release —
-      VoiceFlow transcribes your speech on-device, cleans it into tight, ready-to-use text, and
-      pastes it at your cursor. Local-first and private by default; free to use.</p>
+      <p class="label">§01 · Product</p>
+      <h1>Talk. It types.<br>Nothing leaves your machine.</h1>
+      <p class="lede">VoiceFlow is a push-to-talk dictation app for Windows. Hold a key, speak,
+      release, and your words appear at the cursor in any app. Transcription runs entirely on your
+      own PC, so your voice and text never touch the internet. Free to use.</p>
       <div class="btns">
-        <a class="btn btn-primary" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest">Download the installer →</a>
-        <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow">View the repository →</a>
+        <a class="btn btn-primary" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest">Download for Windows →</a>
+        <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow">View on GitHub →</a>
+      </div>
+      <div class="proof">
+        <div class="cell"><h3>On-device, private</h3><p>Local speech-to-text by default. Zero network egress. Your audio is never uploaded.</p></div>
+        <div class="cell"><h3>Fast, no GPU</h3><p>With the bundled Parakeet engine, a sentence transcribes in well under a second on a normal CPU.</p></div>
+        <div class="cell"><h3>Built for AI coders</h3><p>A dedicated <code>code</code> mode turns spoken requests into clean prompts for Claude Code or Cursor.</p></div>
       </div>
     </div>
   </section>
 
   <section>
     <div class="wrap sec">
-      <p class="label">§02 — What it does</p>
-      <div class="grid">
-        <div class="cell"><h3>Push-to-talk</h3><p>A global hotkey (default <code>Ctrl+Space</code>) — hold or toggle. Speak, release, done.</p></div>
-        <div class="cell"><h3>On-device transcription</h3><p>Speech-to-text runs locally with Whisper. No audio is uploaded on the default path.</p></div>
-        <div class="cell"><h3>Clean text</h3><p>Removes filler ("um", "uh", false starts), fixes punctuation, and can restructure rambling speech.</p></div>
-        <div class="cell"><h3>Paste at the cursor</h3><p>Inserts the result where you are typing, clipboard-safe — your previous clipboard is restored.</p></div>
-        <div class="cell"><h3>Lives in the tray</h3><p>A system-tray app with a mode menu, settings, and optional start-on-login.</p></div>
-        <div class="cell"><h3>Fully offline</h3><p>The installer bundles the speech models; cloud services are opt-in only.</p></div>
-      </div>
+      <p class="label">§02 · Who it is for</p>
+      <p class="body">VoiceFlow is for anyone who would rather talk than type, and especially for
+      developers who work with an AI coding assistant all day. If you use Claude Code, Cursor, or a
+      chat-based assistant to build software, most of your input is prose: describing a change,
+      pasting an error, sketching a feature. Typing that is slow, and speaking it rambles. VoiceFlow
+      closes that gap. You hold a key, say what you want, and a clean, code-aware prompt lands in the
+      chat box, ready to send.</p>
+      <p class="body">It also handles the everyday cases: notes, messages, email drafts, filling in
+      a form. The same hold-to-talk flow works in any text field, in any application.</p>
     </div>
   </section>
 
   <section>
     <div class="wrap sec">
-      <p class="label">§03 — Output modes</p>
+      <p class="label">§03 · How it works</p>
+      <h2>One simple loop</h2>
+      <p class="body">There is no window to switch to, no "send" button, and no account. VoiceFlow
+      lives in the system tray and waits for the hotkey.</p>
+      <div class="pipe" role="img" aria-label="Pipeline: hold the hotkey, speak, release, transcribe on-device, clean by mode, paste at the cursor.">
+        <svg viewBox="0 0 980 92" xmlns="http://www.w3.org/2000/svg">
+          <!-- boxes -->
+          <g class="ptext" text-anchor="middle">
+            <rect class="pbox" x="2"   y="18" width="140" height="56"/>
+            <text x="72"  y="42">HOLD KEY</text><text x="72"  y="60">Ctrl+Space</text>
+            <rect class="pbox" x="170" y="18" width="110" height="56"/>
+            <text x="225" y="50">SPEAK</text>
+            <rect class="pbox" x="308" y="18" width="110" height="56"/>
+            <text x="363" y="50">RELEASE</text>
+            <rect class="pbox" x="446" y="18" width="150" height="56"/>
+            <text x="521" y="42">TRANSCRIBE</text><text x="521" y="60">on-device</text>
+            <rect class="pbox" x="624" y="18" width="140" height="56"/>
+            <text x="694" y="42">CLEAN</text><text x="694" y="60">by mode</text>
+            <rect class="pbox" x="792" y="18" width="186" height="56"/>
+            <text x="885" y="42">PASTE</text><text x="885" y="60">at cursor</text>
+          </g>
+          <!-- arrows -->
+          <g class="parrow">
+            <path d="M144 46 H168"/><path d="M282 46 H306"/><path d="M420 46 H444"/>
+            <path d="M598 46 H622"/><path d="M766 46 H790"/>
+          </g>
+          <g class="phead">
+            <path d="M168 46 l-8 -4 v8 z"/><path d="M306 46 l-8 -4 v8 z"/><path d="M444 46 l-8 -4 v8 z"/>
+            <path d="M622 46 l-8 -4 v8 z"/><path d="M790 46 l-8 -4 v8 z"/>
+          </g>
+        </svg>
+      </div>
+      <p class="body" style="margin-top:24px">Two ways to trigger, set in Settings: <b>hold</b> (record while the key is
+      held, transcribe on release: best for quick bursts) or <b>toggle</b> (tap once to start, tap
+      again to stop: best for longer, hands-free dictation).</p>
+    </div>
+  </section>
+
+  <section id="modes">
+    <div class="wrap sec">
+      <p class="label">§04 · Output modes</p>
+      <h2>Five modes, three fully offline</h2>
+      <p class="body">Every capture runs through a mode that decides how the raw transcript becomes
+      text. Switch per capture from the tray menu, or set a default in Settings. The non-LLM modes
+      (<code>raw</code>, <code>clean</code>, <code>code</code>) are fully offline and instant. The
+      LLM modes (<code>summary</code>, <code>prompt</code>) are optional, and only run if you point
+      VoiceFlow at a local model (such as Ollama) or a cloud endpoint you configure.</p>
       <table>
-        <thead><tr><th>Mode</th><th>What it does</th><th>Needs a cloud / LLM?</th></tr></thead>
+        <thead><tr><th>Mode</th><th>What it does</th><th>Needs an LLM?</th><th>Best for</th></tr></thead>
         <tbody>
-          <tr><td><code>raw</code></td><td>Verbatim transcript, lightly punctuated</td><td>No</td></tr>
-          <tr><td><code>clean</code></td><td>Filler removed, grammar/punctuation fixed (default)</td><td>No (offline cleaner)</td></tr>
-          <tr><td><code>summary</code></td><td>Condensed into a tight brief</td><td>Optional (better with an LLM)</td></tr>
-          <tr><td><code>prompt</code></td><td>Reformatted into a structured prompt</td><td>Optional (better with an LLM)</td></tr>
+          <tr><td><code>raw</code></td><td>Verbatim transcript, lightly punctuated. Nothing removed.</td><td>No</td><td>Quoting exactly what was said</td></tr>
+          <tr><td><code>clean</code> <b>(default)</b></td><td>Removes filler ("um", "you know"), collapses repeats, fixes spacing and capitalisation.</td><td>No</td><td>Everyday dictation: notes, messages</td></tr>
+          <tr><td><code>summary</code></td><td>Condenses rambling speech into a tight brief.</td><td>Yes (local or cloud)</td><td>A spoken brain-dump into a crisp note</td></tr>
+          <tr><td><code>prompt</code></td><td>Reformats speech into a structured LLM prompt (role, task, constraints, context).</td><td>Yes</td><td>Crafting a careful prompt by voice</td></tr>
+          <tr><td><code>code</code></td><td>Trims politeness, keeps code-meaningful words, and fixes programming terms. Instant, no LLM.</td><td>No</td><td>Dictating to Claude Code / Cursor</td></tr>
         </tbody>
       </table>
-    </div>
-  </section>
+      <h2 style="margin-top:40px">The same messy input, by mode</h2>
+      <p class="body">Both examples below are literal output from the current build.</p>
+      <div class="xform">
+        <pre><span class="said">clean &nbsp;spoken:</span>
+  um so basically i need to add a
+  a login function you know
 
-  <section>
-    <div class="wrap sec">
-      <p class="label">§04 — Install</p>
-      <div class="steps">
-        <div class="step"><span class="n">1</span><div class="t"><h3>Download</h3><p>Get <code>VoiceFlow-Setup.exe</code> (~700 MB; offline models bundled) from the <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest">latest release</a>.</p></div></div>
-        <div class="step"><span class="n">2</span><div class="t"><h3>Run it</h3><p>Per-user install — no administrator rights. VoiceFlow is not code-signed yet, so Windows may warn about an unknown publisher: choose More info → Run anyway.</p></div></div>
-        <div class="step"><span class="n">3</span><div class="t"><h3>First run</h3><p>VoiceFlow profiles your hardware and picks the optimal local model — automatically, on-device.</p></div></div>
-        <div class="step"><span class="n">4</span><div class="t"><h3>Dictate</h3><p>Hold <code>Ctrl+Space</code>, speak, release. The cleaned text is pasted at your cursor.</p></div></div>
+<span class="got">output:</span>
+  So i need to add a login function.</pre>
+        <pre><span class="said">code &nbsp;spoken:</span>
+  um can you please add a dunder
+  init to the fast api app
+
+<span class="got">output:</span>
+  Add a __init__ to the FastAPI app.</pre>
       </div>
     </div>
   </section>
 
+  <section id="code">
+    <div class="wrap sec">
+      <p class="label">§05 · Lead feature</p>
+      <h2>The <code>code</code> mode and the code-aware dictionary</h2>
+      <p class="body">This is the feature built specifically for dictating to an AI coding assistant.
+      Two things happen in <code>code</code> mode, both instant and on-device:</p>
+      <div class="grid">
+        <div class="cell"><h3>Polite-prefix trimming</h3><p>Spoken requests start with filler and courtesy ("um, can you please..."). Code mode strips that and leaves the imperative, which is exactly what an AI assistant wants.</p></div>
+        <div class="cell"><h3>Code-aware term fixing</h3><p>A built-in dictionary rewrites spoken programming terms into the symbols and names you meant, and keeps words that are meaningful in code instead of deleting them as filler.</p></div>
+      </div>
+      <h2 style="margin-top:40px">Verified examples</h2>
+      <div class="xform">
+        <pre><span class="said">say:</span> write a test for the postgres connection
+<span class="got">get:</span> Write a test for the PostgreSQL connection.
+
+<span class="said">say:</span> create a dot py file with a dunder init
+<span class="got">get:</span> Create a .py file with a __init__.</pre>
+        <pre><span class="said">say:</span> refactor this like the right way using type script
+<span class="got">get:</span> Refactor this like the right way using TypeScript.
+
+<span class="said">say:</span> add a triple equals check not equal to null
+<span class="got">get:</span> Add a === check != to null.</pre>
+      </div>
+      <h2 style="margin-top:40px">Built-in terms (v1)</h2>
+      <table>
+        <thead><tr><th>You say</th><th>You get</th></tr></thead>
+        <tbody>
+          <tr><td>dunder init</td><td><code>__init__</code></td></tr>
+          <tr><td>arrow function / fat arrow</td><td><code>=&gt;</code></td></tr>
+          <tr><td>double equals / triple equals / not equal</td><td><code>==</code> / <code>===</code> / <code>!=</code></td></tr>
+          <tr><td>dot py / dot ts / dot js / dot json / dot md</td><td><code>.py</code> / <code>.ts</code> / <code>.js</code> / <code>.json</code> / <code>.md</code></td></tr>
+          <tr><td>fast api</td><td><code>FastAPI</code></td></tr>
+          <tr><td>postgres</td><td><code>PostgreSQL</code></td></tr>
+          <tr><td>node js</td><td><code>Node.js</code></td></tr>
+          <tr><td>type script / java script</td><td><code>TypeScript</code> / <code>JavaScript</code></td></tr>
+          <tr><td>git hub</td><td><code>GitHub</code></td></tr>
+        </tbody>
+      </table>
+      <p class="body" style="margin-top:20px">You can add your own. The code dictionary merges with
+      your personal dictionary in the config file, and your entries win. It applies in <b>all</b>
+      modes, not just <code>code</code>, so even a <code>clean</code> capture gets your terms fixed.
+      Code mode adds the politeness trimming on top. See the <a href="guide.html#config">guide</a>
+      for how to add terms.</p>
+    </div>
+  </section>
+
   <section>
     <div class="wrap sec">
-      <p class="label">§05 — Privacy</p>
-      <p class="body">On the default path, no audio and no text ever leave your machine — speech-to-text
-      runs on-device and cleanup uses a built-in offline cleaner. Cloud services are strictly opt-in,
-      and you can verify zero network use yourself.</p>
+      <p class="label">§06 · Privacy</p>
+      <h2>Local-only is the default path</h2>
+      <p class="body">With on-device speech-to-text and no LLM configured, no audio and no text ever
+      leave your machine. There is no account, no telemetry, and no upload. Speech is transcribed by
+      a model that runs on your CPU, bundled with the app. The cleanup for <code>raw</code>,
+      <code>clean</code>, and <code>code</code> modes is plain on-device text processing. The
+      optional <code>summary</code> and <code>prompt</code> modes use an LLM only if you configure
+      one, and you can point them at a local model to stay fully offline. Cloud speech and cloud LLM
+      are strictly opt-in and never selected automatically.</p>
       <div class="btns">
         <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/docs/privacy.md">Privacy &amp; how to verify →</a>
         <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/docs/verifying-downloads.md">Verify your download →</a>
@@ -229,20 +381,36 @@
 
   <section>
     <div class="wrap sec">
-      <p class="label">§06 — Documentation</p>
+      <p class="label">§07 · Install</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><div class="t"><h3>Download</h3><p>Get <code>VoiceFlow-Setup.exe</code> (about 700 MB; the offline models are bundled) from the <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest">latest release</a>.</p></div></div>
+        <div class="step"><span class="n">2</span><div class="t"><h3>Run it</h3><p>Per-user install, no administrator rights. VoiceFlow is not code-signed yet, so Windows may warn about an unknown publisher: choose More info, then Run anyway.</p></div></div>
+        <div class="step"><span class="n">3</span><div class="t"><h3>First run</h3><p>VoiceFlow profiles your hardware and picks the optimal local model automatically, on-device. Nothing is asked of you.</p></div></div>
+        <div class="step"><span class="n">4</span><div class="t"><h3>Dictate</h3><p>Hold <code>Ctrl+Space</code>, speak, release. The cleaned text is pasted at your cursor.</p></div></div>
+      </div>
+      <div class="btns">
+        <a class="btn" href="guide.html">Read the full guide →</a>
+        <a class="btn" href="docs.html">Quickstart, FAQ &amp; troubleshooting →</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap sec">
+      <p class="label">§08 · Documentation</p>
       <div class="sheet">
         <span class="corner c-tl"></span><span class="corner c-tr"></span>
         <span class="corner c-bl"></span><span class="corner c-br"></span>
         <h2>Get started</h2>
-        <p class="body">Step-by-step guides for installing, configuring, and troubleshooting VoiceFlow.</p>
+        <p class="body">A complete how-to guide, plus quickstart, FAQ, troubleshooting, and the
+        privacy verification recipe.</p>
         <div class="btns">
-          <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/docs/quickstart.md">Quickstart →</a>
-          <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/docs/faq.md">FAQ →</a>
-          <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/docs/troubleshooting.md">Troubleshooting →</a>
+          <a class="btn" href="guide.html">How-to guide →</a>
+          <a class="btn" href="docs.html">Docs hub →</a>
           <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/SUPPORT.md">Support →</a>
         </div>
         <div class="titleblock">
-          <span>SHEET: DOCS</span><span>PRODUCT: VOICEFLOW</span><span>REV: 0.1.0</span>
+          <span>SHEET: DOCS</span><span>PRODUCT: VOICEFLOW</span><span>REV: 0.2.0</span>
           <span>PUBLISHER: JG SYSTEMS CONSULTING LTD.</span>
         </div>
       </div>
