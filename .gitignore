@@ -26,6 +26,7 @@ credentials.json
 
 # --- Proprietary source / build tooling (must never leak here) ---
 *.py
+!scripts/check_release.py
 *.pyc
 *.pyd
 *.ps1

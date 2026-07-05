@@ -7,9 +7,10 @@ This policy covers the **VoiceFlow installer and application** distributed from 
 VoiceFlow is closed-source, so please **do not** open a public GitHub issue for security matters.
 Instead, report privately:
 
-- **Email:** [support@jgsystemsconsulting.com](mailto:support@jgsystemsconsulting.com)
-- **Or:** a [GitHub private security advisory](https://github.com/jgsystemsconsulting/jgs-voiceflow/security/advisories/new)
-  (if you prefer to report through GitHub).
+- **Preferred:** a [GitHub private security advisory](https://github.com/jgsystemsconsulting/jgs-voiceflow/security/advisories/new).
+- **Or by email:** [support@jgsystemsconsulting.com](mailto:support@jgsystemsconsulting.com), which
+  JG Systems Consulting Ltd. deliberately maintains as a monitored security inbox for reports that
+  come in this way.
 
 Please include:
 

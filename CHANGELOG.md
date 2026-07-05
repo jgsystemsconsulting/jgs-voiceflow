@@ -4,10 +4,6 @@ All notable changes to VoiceFlow are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and VoiceFlow aims to follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-
-_Nothing yet._
-
 ## [0.3.0] - 2026-07-05
 
 Adds a Systems Engineering output mode for engineers who dictate notes, emails, or reports in SE

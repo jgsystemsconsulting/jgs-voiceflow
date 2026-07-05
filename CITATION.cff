@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you reference this software, please cite it using the metadata below."
+title: "VoiceFlow"
+version: "0.3.0"
+date-released: "2026-07-05"
+authors:
+  - name: "JG Systems Consulting Ltd."
+repository-code: "https://github.com/jgsystemsconsulting/jgs-voiceflow"
+url: "https://jgsystemsconsulting.github.io/jgs-voiceflow/"
+license: "LicenseRef-JGSystemsConsulting-Proprietary"
