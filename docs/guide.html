@@ -85,10 +85,12 @@
   <div class="wrap">
     <span>CLASSIFICATION: <b>PUBLIC</b></span>
     <span>DOC-ID: <b>JGS-VOICEFLOW · GUIDE</b></span>
-    <span>REV <b>0.2.0</b></span>
+    <span>REV <b>0.3.0</b></span>
     <nav class="nav" aria-label="Primary">
       <a href="index.html">Home</a>
+      <a href="guide.html">Guide</a>
       <a href="docs.html">Docs</a>
+      <a href="settings.html">Settings</a>
       <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow">GitHub</a>
     </nav>
   </div>
@@ -157,7 +159,7 @@
 
     <h2 id="modes">Output modes</h2>
     <p>Every capture runs through a mode that decides how the raw transcript is turned into text.
-    Switch modes per capture from the tray menu, or set a default in Settings. Five modes ship:</p>
+    Switch modes per capture from the tray menu, or set a default in Settings. Six modes ship:</p>
     <table>
       <thead><tr><th>Mode</th><th>What it does</th><th>Needs an LLM?</th><th>Best for</th></tr></thead>
       <tbody>
@@ -166,12 +168,13 @@
         <tr><td><code>summary</code></td><td>Condenses rambling speech into a tight brief.</td><td>Yes</td><td>A spoken brain-dump into a note</td></tr>
         <tr><td><code>prompt</code></td><td>Reformats speech into a structured LLM prompt.</td><td>Yes</td><td>Crafting a prompt by voice</td></tr>
         <tr><td><code>code</code></td><td>Trims politeness, keeps code words, fixes programming terms.</td><td>No</td><td>Dictating to Claude Code / Cursor</td></tr>
+        <tr><td><code>systems</code></td><td>Rewrites speech into formal Systems Engineering terminology (INCOSE/ISO 15288).</td><td>Yes</td><td>SE notes, emails, and reports</td></tr>
       </tbody>
     </table>
     <p>The non-LLM modes (<code>raw</code>, <code>clean</code>, <code>code</code>) are fully offline
-    and instant. The LLM modes (<code>summary</code>, <code>prompt</code>) are optional and only run
-    if you point VoiceFlow at a local model (such as Ollama) or a cloud endpoint you configure. Out
-    of the box, no LLM is configured, so everything is on-device.</p>
+    and instant. The LLM modes (<code>summary</code>, <code>prompt</code>, <code>systems</code>) are
+    optional and only run if you point VoiceFlow at a local model (such as Ollama) or a cloud
+    endpoint you configure. Out of the box, no LLM is configured, so everything is on-device.</p>
     <h3>Before and after, every mode</h3>
     <pre><span class="said">raw   spoken:</span> um so basically i need to add a a login function you know
 <span class="got">      output:</span> Um so basically i need to add a a login function you know.
@@ -271,7 +274,7 @@
     <p>VoiceFlow keeps a small config file (TOML) in your Windows app-data folder
     (<code>%APPDATA%\VoiceFlow\</code>). Highlights:</p>
     <ul>
-      <li><b>Output mode:</b> the default mode for new captures (<code>raw</code>, <code>clean</code>, <code>summary</code>, <code>prompt</code>, <code>code</code>).</li>
+      <li><b>Output mode:</b> the default mode for new captures (<code>raw</code>, <code>clean</code>, <code>summary</code>, <code>prompt</code>, <code>code</code>, <code>systems</code>).</li>
       <li><b>Hotkeys:</b> record (default <code>Ctrl+Space</code>), paste-again (<code>Ctrl+Shift+V</code>), cancel (<code>Esc</code>); all rebindable in Settings.</li>
       <li><b>Trigger style:</b> <code>hold</code> or <code>toggle</code>.</li>
       <li><b>Speech engine:</b> the on-device provider and model. Auto-configured on first run; changeable in Settings.</li>
@@ -294,14 +297,15 @@
       <li><b>Platform:</b> Windows 10/11 (64-bit).</li>
       <li><b>Speech:</b> on-device (NVIDIA Parakeet or Whisper), CPU-friendly, no GPU required.</li>
       <li><b>Privacy:</b> local-only by default, zero network egress.</li>
-      <li><b>Modes:</b> raw, clean, summary, prompt, code.</li>
+      <li><b>Modes:</b> raw, clean, summary, prompt, code, systems.</li>
       <li><b>Trigger:</b> push-to-talk hold or toggle, fully rebindable.</li>
       <li><b>Pastes into:</b> any text field in any Windows app.</li>
       <li><b>For AI coders:</b> <code>code</code> mode plus a built-in, extensible programming dictionary.</li>
       <li><b>Cost:</b> free, no account.</li>
     </ul>
     <p style="margin-top:32px"><a href="docs.html">Continue to the docs hub</a> for quickstart, FAQ,
-    troubleshooting, privacy, and download verification, or
+    troubleshooting, privacy, and download verification. For detailed settings and configuration,
+    see the <a href="settings.html">settings reference</a>, or
     <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest">download VoiceFlow</a>.</p>
   </div>
 </main>

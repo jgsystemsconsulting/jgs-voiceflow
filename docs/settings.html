@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VoiceFlow settings reference: parameters, configuration, and custom setup</title>
+<meta name="description" content="Complete VoiceFlow settings reference guide. Learn what each parameter does, why to use it, when to change it, and how to customize VoiceFlow for your workflow.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0b'/%3E%3Ctext x='16' y='23' font-family='monospace' font-size='22' font-weight='700' fill='%23f4f2ec' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://jgsystemsconsulting.github.io/jgs-voiceflow/settings.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VoiceFlow settings reference">
+<meta property="og:description" content="Complete settings guide for VoiceFlow: what each parameter does, why you'd use it, and how to customize for your workflow.">
+<meta property="og:url" content="https://jgsystemsconsulting.github.io/jgs-voiceflow/settings.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VoiceFlow settings reference">
+<meta name="twitter:description" content="What each VoiceFlow setting does, when to change it, and why.">
+<style>
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('./fonts/inter-400.woff2') format('woff2'); }
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('./fonts/inter-600.woff2') format('woff2'); }
+  @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('./fonts/jetbrains-mono-400.woff2') format('woff2'); }
+  @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('./fonts/jetbrains-mono-700.woff2') format('woff2'); }
+  :root {
+    --ink: #0a0a0b; --ink-2: #111113; --ink-3: #16171a;
+    --line: #2a2d33; --line-2: #3a3e46;
+    --mute: #6b7078; --mute-2: #8b9099;
+    --text: #c7ccd3; --text-hi: #e8ebf0;
+    --paper: #f4f2ec; --paper-ink: #0a0a0b; --accent: #8fd0c4;
+    --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    --sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --pad-x: clamp(24px, 4vw, 80px); --pad-section: clamp(40px, 5vw, 72px);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ink); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.7; }
+  .wrap { max-width: 920px; margin: 0 auto; padding-left: var(--pad-x); padding-right: var(--pad-x); }
+  a { color: var(--text-hi); text-decoration: none; border-bottom: 1px solid var(--line-2); }
+  a:hover { border-bottom-color: var(--paper); }
+  :focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: var(--pad-x); top: 10px; z-index: 10; background: var(--paper); color: var(--paper-ink); padding: 8px 14px; border: 0; }
+  .masthead { border-bottom: 1px solid var(--line); }
+  .masthead .wrap {
+    display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: baseline; max-width: 1200px;
+    padding-top: 14px; padding-bottom: 14px;
+    font-family: var(--mono); font-size: 0.625rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute);
+  }
+  .masthead b { color: var(--text-hi); }
+  .masthead .nav { margin-left: auto; display: flex; gap: 18px; }
+  .masthead .nav a { border: 0; color: var(--mute); }
+  .masthead .nav a:hover { color: var(--text-hi); }
+  header.hero { border-bottom: 1px solid var(--line); }
+  header.hero .wrap { padding-top: var(--pad-section); padding-bottom: var(--pad-section); }
+  .label { font-family: var(--mono); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute); margin: 0 0 16px; }
+  h1 { font-family: var(--mono); font-weight: 700; letter-spacing: -0.02em; font-size: clamp(1.9rem, 4.5vw, 2.9rem); line-height: 1.08; margin: 0 0 16px; color: var(--text-hi); }
+  h2 { font-family: var(--mono); font-weight: 700; font-size: clamp(1.2rem, 2.4vw, 1.5rem); margin: 48px 0 14px; color: var(--text-hi); padding-top: 8px; border-top: 1px solid var(--line); }
+  h2:first-of-type { border-top: 0; padding-top: 0; }
+  h3 { font-family: var(--mono); font-weight: 700; font-size: 1rem; margin: 28px 0 8px; color: var(--text-hi); }
+  .lede { font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--mute-2); max-width: 62ch; }
+  p { color: var(--text); max-width: 72ch; }
+  ul, ol { color: var(--text); max-width: 72ch; padding-left: 1.3em; }
+  li { margin: 6px 0; }
+  code { font-family: var(--mono); font-size: 0.9em; color: var(--text-hi); }
+  pre { font-family: var(--mono); font-size: 0.85rem; line-height: 1.6; background: var(--ink-2); border: 1px solid var(--line); padding: 18px 20px; overflow-x: auto; color: var(--text); white-space: pre-wrap; word-break: break-word; }
+  table { border-collapse: collapse; width: 100%; margin-top: 8px; font-size: 0.95rem; }
+  th, td { border: 1px solid var(--line); padding: 11px 15px; text-align: left; vertical-align: top; }
+  th { font-family: var(--mono); font-weight: 700; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); }
+  .toc { font-family: var(--mono); font-size: 0.8rem; display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 28px; }
+  .toc a { color: var(--mute); border: 0; }
+  .toc a:hover { color: var(--text-hi); }
+  .setting { border: 1px solid var(--line); background: var(--ink-2); padding: 20px 22px; margin: 16px 0; }
+  .setting h4 { margin: 0 0 6px 0; font-size: 1rem; color: var(--text-hi); }
+  .setting .code-label { font-family: var(--mono); font-size: 0.8rem; color: var(--mute); margin-bottom: 12px; }
+  .setting p { margin: 8px 0; font-size: 0.95rem; }
+  .setting ul { margin: 8px 0; padding-left: 1.3em; }
+  .setting li { margin: 4px 0; font-size: 0.95rem; }
+  .note { border-left: 2px solid var(--line-2); background: var(--ink-2); padding: 12px 18px; margin: 16px 0; color: var(--mute-2); font-size: 0.95rem; }
+  .note b { color: var(--text-hi); }
+  .recipe { border-left: 2px solid var(--accent); background: var(--ink-2); padding: 14px 18px; margin: 16px 0; }
+  .recipe h4 { margin: 0 0 8px 0; font-size: 0.95rem; color: var(--text-hi); }
+  .recipe p { margin: 6px 0; font-size: 0.95rem; }
+  footer { color: var(--mute); font-size: 0.85rem; border-top: 1px solid var(--line); }
+  footer .wrap { padding-top: 28px; padding-bottom: 44px; max-width: 1200px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <span>CLASSIFICATION: <b>PUBLIC</b></span>
+    <span>DOC-ID: <b>JGS-VOICEFLOW · SETTINGS</b></span>
+    <span>REV <b>0.3.0</b></span>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="guide.html">Guide</a>
+      <a href="docs.html">Docs</a>
+      <a href="settings.html">Settings</a>
+      <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="label">§ Settings Reference</p>
+    <h1>VoiceFlow settings guide</h1>
+    <p class="lede">What each setting does, why you'd change it, when to apply it, and how to
+    customize VoiceFlow for your workflow. Everything you need to configure VoiceFlow to fit the way you work.</p>
+    <nav class="toc" aria-label="Contents">
+      <a href="#where">Where settings live</a>
+      <a href="#hotkeys">Hotkeys &amp; Trigger</a>
+      <a href="#modes">Output &amp; Cleanup</a>
+      <a href="#speech">Speech Recognition</a>
+      <a href="#behavior">Behavior</a>
+      <a href="#recipes">Recipes &amp; Workflows</a>
+      <a href="#reference">Quick reference</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap" style="padding-top: var(--pad-section); padding-bottom: var(--pad-section);">
+
+    <h2 id="where">Where settings live</h2>
+    <p>VoiceFlow settings are stored in a plain-text TOML config file in your Windows app-data
+    folder. Open it by right-clicking the tray icon and selecting <b>Settings</b>, or navigate manually to:</p>
+    <pre>%APPDATA%\VoiceFlow\config.toml</pre>
+    <p><b>Two ways to configure:</b></p>
+    <ol>
+      <li><b>Settings dialog (recommended).</b> Right-click the VoiceFlow tray icon → <b>Settings</b>.
+      Most common settings have a UI. Changes apply immediately to the next capture.</li>
+      <li><b>Direct config file edit.</b> Open <code>%APPDATA%\VoiceFlow\config.toml</code> in a text
+      editor. Restart VoiceFlow for changes to take effect. Use this for advanced configuration (like
+      personal dictionary or LLM endpoints).</li>
+    </ol>
+
+    <h2 id="hotkeys">Hotkeys &amp; Trigger</h2>
+    <p>These settings control how you start, stop, and manage recordings.</p>
+
+    <div class="setting">
+      <h4>Recording hotkey</h4>
+      <p class="code-label">Config: <code>hotkey.record</code> | Default: <code>Ctrl+Space</code></p>
+      <p><b>What it does:</b> The key combination you hold (or tap, if toggle mode) to trigger recording.</p>
+      <p><b>Why change it:</b> Your preferred hotkey conflicts with another app, or you want a combo
+      that's easier to reach.</p>
+      <p><b>How to use:</b> Open Settings, go to <b>Hotkeys</b>, click in the <b>Record</b> field, and
+      press the keys you want (single key or combination). Try <code>Alt+R</code>, <code>Ctrl+`</code>
+      (backtick, good for programmers), or <code>CapsLock</code> if you remap it.</p>
+      <p><b>Examples:</b></p>
+      <ul>
+        <li><code>Ctrl+Space</code> — default, works in most apps</li>
+        <li><code>Alt+V</code> — mnemonic for "voice"</li>
+        <li><code>Ctrl+Shift+D</code> — "dictate", easy to remember</li>
+      </ul>
+      <div class="note"><b>Gotcha:</b> Some apps (like VS Code, Windows Terminal) swallow common
+      hotkeys. Test your choice in the apps you use most. If it doesn't work, rebind to something less
+      common.</div>
+    </div>
+
+    <div class="setting">
+      <h4>Trigger style</h4>
+      <p class="code-label">Config: <code>trigger.style</code> | Default: <code>hold</code></p>
+      <p><b>What it does:</b> How you activate recording: hold the key down while speaking, or tap once
+      to start and tap again to stop.</p>
+      <p><b>Options:</b></p>
+      <ul>
+        <li><code>hold</code> — record while key is pressed, stop on release. Instant feedback on when
+        recording ends.</li>
+        <li><code>toggle</code> — tap once to start, tap again to stop. Hands-free, good for longer
+        dictations.</li>
+      </ul>
+      <p><b>When to use:</b></p>
+      <ul>
+        <li><b>Hold:</b> quick bursts to Claude Code, chat messages, PR descriptions. You know exactly
+        when recording stops.</li>
+        <li><b>Toggle:</b> hands-free note-taking while reading docs, long rambling thoughts, or
+        meetings. No need to hold a key.</li>
+      </ul>
+      <p><b>Why you'd switch:</b> Your use case changed (now doing more hands-free work), or you want
+      to reduce finger strain on long sessions.</p>
+    </div>
+
+    <div class="setting">
+      <h4>Paste-again hotkey</h4>
+      <p class="code-label">Config: <code>hotkey.paste_again</code> | Default: <code>Ctrl+Shift+V</code></p>
+      <p><b>What it does:</b> Re-paste the last transcription at your cursor, without re-recording.</p>
+      <p><b>Why use it:</b> You dictated something, pasted it, then clicked elsewhere. Now you want to
+      paste the same text somewhere else without re-speaking.</p>
+      <p><b>Example:</b> You dictate an error message to Claude Code, it gets pasted in the chat. Then
+      you realize you also need it in a GitHub issue. Hit paste-again and it appears in the issue
+      without re-recording.</p>
+    </div>
+
+    <div class="setting">
+      <h4>Cancel hotkey</h4>
+      <p class="code-label">Config: <code>hotkey.cancel</code> | Default: <code>Esc</code></p>
+      <p><b>What it does:</b> Stop recording and discard the current capture (don't paste anything).</p>
+      <p><b>When you'd use it:</b> You started recording, realized you want to rephrase, and want to
+      bail without pasting. In hold mode, just release; in toggle mode, hit Esc to cancel before you
+      tap to stop.</p>
+    </div>
+
+    <h2 id="modes">Output &amp; Cleanup</h2>
+    <p>These settings control what VoiceFlow does with the raw transcript before pasting it.</p>
+
+    <div class="setting">
+      <h4>Default output mode</h4>
+      <p class="code-label">Config: <code>output.mode</code> | Default: <code>clean</code></p>
+      <p><b>What it does:</b> The cleanup mode that runs on every capture (unless you override it from
+      the tray menu per-capture).</p>
+      <p><b>Options:</b></p>
+      <ul>
+        <li><code>raw</code> — verbatim transcript, lightly punctuated. Nothing removed or reworded.</li>
+        <li><code>clean</code> — removes filler ("um", "uh", repeats), fixes capitalization, and
+        improves punctuation. Works offline, instant.</li>
+        <li><code>code</code> — like clean, but also trims politeness and fixes programming terms
+        ("dunder init" → <code>__init__</code>). Perfect for AI coding assistants.</li>
+        <li><code>summary</code> — condenses rambling speech into a tight, one-line brief. Needs an LLM.</li>
+        <li><code>prompt</code> — reformats your spoken words into a structured LLM prompt (Role, Task,
+        Constraints, Context). Needs an LLM.</li>
+        <li><code>systems</code> — rewrites speech into formal Systems Engineering terminology per
+        INCOSE/ISO 15288 (e.g. "make sure it works" → "verify compliance with the requirement").
+        Needs an LLM.</li>
+      </ul>
+      <p><b>Which to pick:</b></p>
+      <ul>
+        <li>Writing most of the time? Use <code>clean</code> (default, works everywhere, instant).</li>
+        <li>Dictating to Claude Code or Cursor? Use <code>code</code> (programming terms fixed, politeness trimmed).</li>
+        <li>Taking rough notes you'll clean up later? Use <code>raw</code>.</li>
+        <li>Want AI to condense your thoughts? Use <code>summary</code> or <code>prompt</code> (after
+        configuring an LLM).</li>
+      </ul>
+      <div class="note"><b>You can override per-capture:</b> even if your default is <code>clean</code>,
+      right-click the tray icon before dictating and pick a different mode just for that capture. Useful
+      when you switch tasks mid-day.</div>
+    </div>
+
+    <div class="setting">
+      <h4>LLM provider</h4>
+      <p class="code-label">Config: <code>llm.provider</code> | Default: <code>none</code></p>
+      <p><b>What it does:</b> Points VoiceFlow at an AI model to power the <code>summary</code> and
+      <code>prompt</code> modes. Completely optional.</p>
+      <p><b>Options:</b></p>
+      <ul>
+        <li><code>none</code> — no LLM. <code>summary</code> and <code>prompt</code> fall back to a
+        rule-based cleaner (offline, instant, lower quality).</li>
+        <li><code>openai_compatible</code> — any OpenAI-compatible endpoint. Examples: Ollama, LM Studio,
+        Azure OpenAI, or even your own local server.</li>
+        <li><code>anthropic</code> — Claude API (requires API key; your text is sent to Anthropic).</li>
+        <li><code>openai</code> — OpenAI API (requires API key; your text is sent to OpenAI).</li>
+      </ul>
+      <p><b>When to configure:</b></p>
+      <ul>
+        <li><b>You want better summaries:</b> rambling spoken thoughts condensed into tight, readable
+        text. Great for capturing half-formed ideas.</li>
+        <li><b>You dictate prompts to AI:</b> spoken instructions reformatted into structured role/task
+        prompts, saving you keypresses.</li>
+        <li><b>You want true local-only processing:</b> use Ollama or LM Studio with a local model
+        (careful: some model names ending in <code>:cloud</code> route through a remote server).</li>
+      </ul>
+      <p><b>Setup example (Ollama):</b></p>
+      <pre>Config (config.toml):
+[llm]
+provider = "openai_compatible"
+base_url = "http://localhost:11434/v1"
+model = "mistral"
+</pre>
+      <p>Then fire up Ollama, run <code>ollama serve</code>, and your summaries will use the Mistral
+      model running on your machine.</p>
+      <div class="note"><b>Privacy tip:</b> A local model (Ollama, LM Studio) keeps your text on your
+      machine. A cloud provider (OpenAI, Anthropic) sends it to their servers. Pick based on your
+      comfort level and speed needs.</div>
+    </div>
+
+    <div class="setting">
+      <h4>Personal dictionary</h4>
+      <p class="code-label">Config: <code>[dictionary]</code> section in config.toml</p>
+      <p><b>What it does:</b> A list of spoken phrases and what they should become in your output.
+      Merges on top of the built-in programming dictionary (your entries win if there's a conflict).</p>
+      <p><b>Why use it:</b> VoiceFlow keeps mishearing a term, or you want to add jargon specific to
+      your domain, company, or stack.</p>
+      <p><b>How to add terms:</b> Edit <code>config.toml</code> directly. Find or create the
+      <code>[dictionary]</code> section and add pairs:</p>
+      <pre>[dictionary]
+"dunder main" = "__main__"
+"postgres" = "PostgreSQL"
+"my company name" = "MyCompanyName"
+"async await" = "async/await"
+</pre>
+      <p><b>Tips for good dictionary terms:</b></p>
+      <ul>
+        <li><b>Exact matches only.</b> The term must match exactly as spoken (case-insensitive). "postgres" matches but "postgre" won't.</li>
+        <li><b>Multi-word phrases work.</b> You can map "machine learning model" → "ML model".</li>
+        <li><b>Symbols are safe.</b> Use any symbols you need: "double quote" → <code>"</code> works fine.</li>
+        <li><b>Order doesn't matter.</b> Longer phrases are processed first, so specific terms take
+        precedence.</li>
+      </ul>
+      <p><b>Real examples from v1:</b></p>
+      <ul>
+        <li>"dunder init" → <code>__init__</code></li>
+        <li>"fast api" → <code>FastAPI</code></li>
+        <li>"dot py file" → <code>.py file</code></li>
+        <li>"postgres connection" → <code>PostgreSQL connection</code></li>
+      </ul>
+      <p><b>When to add a term:</b> After you notice VoiceFlow mishearing the same word three times.
+      Add it to the dictionary and it's fixed from then on, in every mode.</p>
+    </div>
+
+    <h2 id="speech">Speech Recognition</h2>
+    <p>These settings control the on-device speech engine and language behavior.</p>
+
+    <div class="setting">
+      <h4>Language</h4>
+      <p class="code-label">Config: <code>speech.language</code> | Default: auto-detect based on Windows locale</p>
+      <p><b>What it does:</b> The language the speech engine listens for. Auto-detection is the
+      default but slower and less accurate than explicitly setting a language.</p>
+      <p><b>Why change it:</b> You work in a specific language and want faster, more accurate
+      transcription.</p>
+      <p><b>Examples:</b> <code>en</code> (English), <code>fr</code> (French), <code>de</code> (German),
+      <code>ja</code> (Japanese). See Whisper's supported languages for the full list.</p>
+      <p><b>Performance:</b> Setting a language is ~10-20% faster than auto-detect, with better accuracy
+      for that language.</p>
+    </div>
+
+    <div class="setting">
+      <h4>Speech engine</h4>
+      <p class="code-label">Config: <code>speech.engine</code> | Default: auto-configured on first run</p>
+      <p><b>What it does:</b> The underlying transcription model and provider. VoiceFlow auto-configures
+      on first run based on your hardware.</p>
+      <p><b>Options (v0.3.0):</b></p>
+      <ul>
+        <li><code>parakeet</code> — NVIDIA's lightweight model. Faster, lower accuracy than Whisper.
+        Bundled in the installer. Recommended for most users.</li>
+        <li><code>whisper_tiny</code>, <code>whisper_base</code>, <code>whisper_small</code> — OpenAI
+        Whisper models, in order of speed vs. accuracy trade-off. Tiny is fast but less accurate; small
+        is slower but more accurate. All bundled in the installer.</li>
+      </ul>
+      <p><b>When to switch:</b></p>
+      <ul>
+        <li><b>Parakeet is mishearing you.</b> Try <code>whisper_base</code> for better accuracy (trades
+        speed).</li>
+        <li><b>Transcription is too slow.</b> Try <code>parakeet</code> or <code>whisper_tiny</code> for
+        speed (trades accuracy).</li>
+        <li><b>You need a specific language.</b> Some models perform better in certain languages. Test
+        both and see.</li>
+      </ul>
+      <div class="note"><b>GPU acceleration:</b> NVIDIA GPUs (CUDA) are supported for all models.
+      AMD/Intel GPUs are not accelerated; those machines default to CPU, which is still fast enough.</div>
+    </div>
+
+    <h2 id="behavior">Behavior</h2>
+    <p>These settings control app-level behavior and persistence.</p>
+
+    <div class="setting">
+      <h4>Start on login</h4>
+      <p class="code-label">Config: <code>app.start_on_login</code> | Default: <code>false</code></p>
+      <p><b>What it does:</b> Whether VoiceFlow launches automatically when you log into Windows.</p>
+      <p><b>Why enable it:</b> You use VoiceFlow every day and want it running without remembering to
+      start it. It sits quietly in the tray, takes no resources until you dictate.</p>
+      <p><b>How to set it:</b> Right-click the tray icon → <b>Settings</b> → check <b>Start on
+      login</b>. That's it; next restart, it'll launch automatically.</p>
+    </div>
+
+    <div class="setting">
+      <h4>Tray icon click behavior</h4>
+      <p class="code-label">Config: <code>app.tray_click</code> | Default: <code>menu</code></p>
+      <p><b>What it does:</b> What happens when you left-click the VoiceFlow tray icon.</p>
+      <p><b>Options:</b></p>
+      <ul>
+        <li><code>menu</code> — opens the context menu (mode switcher, Settings, Help).</li>
+        <li><code>paste_again</code> — re-pastes the last transcription (convenience shortcut).</li>
+        <li><code>toggle_mode</code> — cycles through modes without opening a menu.</li>
+      </ul>
+      <p><b>Choose based on workflow:</b></p>
+      <ul>
+        <li><b>Default (menu):</b> most flexible, covers everything in one click.</li>
+        <li><b>paste_again:</b> if you frequently re-paste the last dictation without changing it.</li>
+        <li><b>toggle_mode:</b> if you switch modes often and want a one-click cycle.</li>
+      </ul>
+    </div>
+
+    <div class="setting">
+      <h4>Capture history retention</h4>
+      <p class="code-label">Config: <code>app.history_days</code> | Default: <code>30</code></p>
+      <p><b>What it does:</b> How many days of capture history VoiceFlow keeps (transcripts, timestamps,
+      modes used). Older entries are automatically deleted.</p>
+      <p><b>Why care:</b> History takes disk space (minimal) and can be a privacy concern if your machine
+      is ever accessed by someone else.</p>
+      <p><b>Options:</b></p>
+      <ul>
+        <li><code>0</code> — no history, every capture is forgotten immediately.</li>
+        <li><code>7</code> — keep a week of history.</li>
+        <li><code>30</code> — default, keep a month.</li>
+        <li><code>-1</code> — keep forever.</li>
+      </ul>
+      <p><b>Why you'd change it:</b> Privacy-sensitive work (medical, legal transcripts) → set to 0.
+      Research or reference work where you want to look back → set to -1.</p>
+    </div>
+
+    <h2 id="recipes">Recipes &amp; Workflows</h2>
+    <p>Common scenarios and how to configure VoiceFlow for each.</p>
+
+    <div class="recipe">
+      <h4>Scenario A: I dictate to Claude Code all day</h4>
+      <p><b>Setup:</b></p>
+      <ul>
+        <li>Default mode: <code>code</code></li>
+        <li>Hotkey: <code>Ctrl+Space</code> (default is fine)</li>
+        <li>Trigger: <code>hold</code> (default)</li>
+        <li>Personal dictionary: add your stack's terms (e.g., "dunder init" → <code>__init__</code>,
+        "your framework" → "YourFramework")</li>
+      </ul>
+      <p><b>Why:</b> Code mode strips politeness and fixes terms. You hold the key, speak an instruction,
+      release, and it pastes clean and ready to send. Your custom terms get fixed every time.</p>
+      <p><b>Pro tip:</b> set paste-again hotkey to something one-handed so you can re-paste a prompt into
+      multiple places without re-speaking.</p>
+    </div>
+
+    <div class="recipe">
+      <h4>Scenario B: I take notes while reading docs (hands-free)</h4>
+      <p><b>Setup:</b></p>
+      <ul>
+        <li>Default mode: <code>clean</code></li>
+        <li>Trigger: <code>toggle</code></li>
+        <li>Hotkey: something easy to tap (e.g., <code>Alt+V</code>)</li>
+      </ul>
+      <p><b>Why:</b> Toggle mode means you tap once to start, tap again to stop. No key-holding. Clean
+      mode removes filler but keeps structure, great for documentation notes. You can ramble and pause
+      without stopping the recording.</p>
+      <p><b>Workflow:</b> Tap <code>Alt+V</code> once, read and talk, tap <code>Alt+V</code> again. Text
+      lands in your editor, cleaned up and ready.</p>
+    </div>
+
+    <div class="recipe">
+      <h4>Scenario C: I want AI-powered summaries of rambling thoughts</h4>
+      <p><b>Setup:</b></p>
+      <ul>
+        <li>Default mode: <code>clean</code> (or <code>summary</code> if you want summaries most of the
+        time)</li>
+        <li>LLM provider: configure Ollama or your cloud provider of choice (OpenAI, Anthropic)</li>
+        <li>Trigger: <code>toggle</code> (hands-free for longer thoughts)</li>
+      </ul>
+      <p><b>Why:</b> LLM modes condense rambling speech into tight, one-line notes. Useful for capturing
+      half-formed ideas and turning them into actionable items. You talk for 30 seconds, it becomes a
+      one-line note ready to paste into your issue tracker.</p>
+      <p><b>Setup (Ollama example):</b> Install Ollama, run <code>ollama pull mistral</code>, start the
+      server, then point VoiceFlow at <code>http://localhost:11434/v1</code> with model <code>mistral</code>.</p>
+    </div>
+
+    <div class="recipe">
+      <h4>Scenario D: Privacy-first, zero history</h4>
+      <p><b>Setup:</b></p>
+      <ul>
+        <li>Default mode: <code>clean</code> or <code>raw</code></li>
+        <li>LLM provider: <code>none</code></li>
+        <li>Hotkey: leave default or set to something you control</li>
+        <li>Capture history: <code>0</code> (forget every capture immediately)</li>
+      </ul>
+      <p><b>Why:</b> Sensitive work (medical, legal, financial transcripts) needs zero persistence and
+      zero cloud egress. This config ensures everything stays on-device and nothing is logged.</p>
+      <p><b>Verify:</b> See <a href="docs.html#privacy">privacy</a> for how to confirm zero network
+      usage with a firewall rule.</p>
+    </div>
+
+    <div class="recipe">
+      <h4>Scenario E: My hotkey conflicts with another app</h4>
+      <p><b>Problem:</b> You use Ctrl+Space to invoke an IDE feature or autohotkey script, and VoiceFlow
+      grabs it first.</p>
+      <p><b>Solution:</b> Rebind VoiceFlow's hotkey.</p>
+      <ul>
+        <li>Right-click tray icon → <b>Settings</b> → <b>Hotkeys</b> → click the <b>Record</b> field</li>
+        <li>Press the new keys you want (try <code>Alt+Shift+V</code>, <code>Ctrl+`</code> backtick, or
+        <code>CapsLock</code> if you remap it)</li>
+        <li>Test in the apps where you use VoiceFlow most</li>
+      </ul>
+      <p><b>Pro tip:</b> If a key combo still doesn't work, check the other app's settings—it might be
+      blocking the hotkey at a system level.</p>
+    </div>
+
+    <h2 id="reference">Quick reference table</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Setting</th>
+          <th>Config key</th>
+          <th>Default</th>
+          <th>Type</th>
+          <th>When to change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Recording hotkey</td>
+          <td><code>hotkey.record</code></td>
+          <td><code>Ctrl+Space</code></td>
+          <td>Hotkey</td>
+          <td>Conflicts with another app</td>
+        </tr>
+        <tr>
+          <td>Trigger style</td>
+          <td><code>trigger.style</code></td>
+          <td><code>hold</code></td>
+          <td>hold / toggle</td>
+          <td>Want hands-free, or quick bursts</td>
+        </tr>
+        <tr>
+          <td>Paste-again hotkey</td>
+          <td><code>hotkey.paste_again</code></td>
+          <td><code>Ctrl+Shift+V</code></td>
+          <td>Hotkey</td>
+          <td>Want easier access to re-paste</td>
+        </tr>
+        <tr>
+          <td>Cancel hotkey</td>
+          <td><code>hotkey.cancel</code></td>
+          <td><code>Esc</code></td>
+          <td>Hotkey</td>
+          <td>Rarely needed; conflicts if common in your app</td>
+        </tr>
+        <tr>
+          <td>Default output mode</td>
+          <td><code>output.mode</code></td>
+          <td><code>clean</code></td>
+          <td>raw / clean / code / summary / prompt / systems</td>
+          <td>Dictating to AI, or want LLM cleanup</td>
+        </tr>
+        <tr>
+          <td>LLM provider</td>
+          <td><code>llm.provider</code></td>
+          <td><code>none</code></td>
+          <td>none / openai_compatible / anthropic / openai</td>
+          <td>Want better summaries or prompts</td>
+        </tr>
+        <tr>
+          <td>Personal dictionary</td>
+          <td><code>[dictionary]</code></td>
+          <td>(empty)</td>
+          <td>Key-value pairs</td>
+          <td>App mishears a term, or add domain jargon</td>
+        </tr>
+        <tr>
+          <td>Language</td>
+          <td><code>speech.language</code></td>
+          <td>auto-detect</td>
+          <td>en, fr, de, etc.</td>
+          <td>Want faster, more accurate transcription</td>
+        </tr>
+        <tr>
+          <td>Speech engine</td>
+          <td><code>speech.engine</code></td>
+          <td>auto-configured</td>
+          <td>parakeet / whisper_*</td>
+          <td>Accuracy or speed needs change</td>
+        </tr>
+        <tr>
+          <td>Start on login</td>
+          <td><code>app.start_on_login</code></td>
+          <td><code>false</code></td>
+          <td>true / false</td>
+          <td>Use VoiceFlow every day</td>
+        </tr>
+        <tr>
+          <td>Tray click behavior</td>
+          <td><code>app.tray_click</code></td>
+          <td><code>menu</code></td>
+          <td>menu / paste_again / toggle_mode</td>
+          <td>Different workflow preferences</td>
+        </tr>
+        <tr>
+          <td>History retention</td>
+          <td><code>app.history_days</code></td>
+          <td><code>30</code></td>
+          <td>0 to -1 (0 = none, -1 = forever)</td>
+          <td>Privacy concerns, or need long-term record</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:36px">More questions? See the <a href="docs.html#faq">FAQ</a>, check
+    <a href="docs.html#troubleshooting">troubleshooting</a>, or read the full
+    <a href="guide.html">guide</a>. For bugs or feature requests, visit the
+    <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow/issues">GitHub issues page</a>.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>&copy; 2026 JG Systems Consulting Ltd. "VoiceFlow" and "JG Systems Consulting" are trademarks
+    of JG Systems Consulting Ltd. VoiceFlow is proprietary software, free to use under its
+    <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/LICENSE">LICENSE</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>

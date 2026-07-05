@@ -25,7 +25,7 @@
   "description": "Push-to-talk voice dictation for Windows. Hold a hotkey, speak, release: VoiceFlow transcribes on-device, cleans the text, and pastes it at your cursor. Local-first and private by default, with a code mode for dictating to AI coding assistants. Free to use.",
   "url": "https://jgsystemsconsulting.github.io/jgs-voiceflow/",
   "downloadUrl": "https://github.com/jgsystemsconsulting/jgs-voiceflow/releases/latest",
-  "softwareVersion": "0.2.0",
+  "softwareVersion": "0.3.0",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "publisher": { "@type": "Organization", "name": "JG Systems Consulting Ltd." }
 }
@@ -193,7 +193,7 @@
     <span>CLASSIFICATION: <b>PUBLIC</b></span>
     <span>LICENCE: <b>PROPRIETARY · FREE TO USE</b></span>
     <span>DOC-ID: <b>JGS-VOICEFLOW</b></span>
-    <span>REV <b>0.2.0</b></span>
+    <span>REV <b>0.3.0</b></span>
     <nav class="nav" aria-label="Primary">
       <a href="#modes">Modes</a>
       <a href="#code">Code mode</a>
@@ -280,12 +280,13 @@
   <section id="modes">
     <div class="wrap sec">
       <p class="label">§04 · Output modes</p>
-      <h2>Five modes, three fully offline</h2>
+      <h2>Six modes, three fully offline</h2>
       <p class="body">Every capture runs through a mode that decides how the raw transcript becomes
       text. Switch per capture from the tray menu, or set a default in Settings. The non-LLM modes
       (<code>raw</code>, <code>clean</code>, <code>code</code>) are fully offline and instant. The
-      LLM modes (<code>summary</code>, <code>prompt</code>) are optional, and only run if you point
-      VoiceFlow at a local model (such as Ollama) or a cloud endpoint you configure.</p>
+      LLM modes (<code>summary</code>, <code>prompt</code>, <code>systems</code>) are optional, and
+      only run if you point VoiceFlow at a local model (such as Ollama) or a cloud endpoint you
+      configure.</p>
       <table>
         <thead><tr><th>Mode</th><th>What it does</th><th>Needs an LLM?</th><th>Best for</th></tr></thead>
         <tbody>
@@ -294,6 +295,7 @@
           <tr><td><code>summary</code></td><td>Condenses rambling speech into a tight brief.</td><td>Yes (local or cloud)</td><td>A spoken brain-dump into a crisp note</td></tr>
           <tr><td><code>prompt</code></td><td>Reformats speech into a structured LLM prompt (role, task, constraints, context).</td><td>Yes</td><td>Crafting a careful prompt by voice</td></tr>
           <tr><td><code>code</code></td><td>Trims politeness, keeps code-meaningful words, and fixes programming terms. Instant, no LLM.</td><td>No</td><td>Dictating to Claude Code / Cursor</td></tr>
+          <tr><td><code>systems</code></td><td>Rewrites speech into formal Systems Engineering terminology (INCOSE/ISO 15288).</td><td>Yes</td><td>SE notes, emails, and reports</td></tr>
         </tbody>
       </table>
       <h2 style="margin-top:40px">The same messy input, by mode</h2>
@@ -410,7 +412,7 @@
           <a class="btn" href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/SUPPORT.md">Support →</a>
         </div>
         <div class="titleblock">
-          <span>SHEET: DOCS</span><span>PRODUCT: VOICEFLOW</span><span>REV: 0.2.0</span>
+          <span>SHEET: DOCS</span><span>PRODUCT: VOICEFLOW</span><span>REV: 0.3.0</span>
           <span>PUBLISHER: JG SYSTEMS CONSULTING LTD.</span>
         </div>
       </div>
