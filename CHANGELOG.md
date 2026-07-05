@@ -8,6 +8,24 @@ All notable changes to VoiceFlow are documented here. The format is based on
 
 _Nothing yet._
 
+## [0.3.0] - 2026-07-05
+
+Adds a Systems Engineering output mode for engineers who dictate notes, emails, or reports in SE
+terminology.
+
+### Added
+
+- **`systems` output mode**: rewrites dictated speech into formal Systems Engineering terminology
+  per INCOSE and ISO/IEC/IEEE 15288 usage (for example "make sure it does X" becomes "verify
+  compliance with the requirement for X", "the thing we're building" becomes "the system of
+  interest"). Selectable per capture from the tray menu and Settings window. Uses an LLM when
+  configured, and falls back to rule-based clean when none is available, same as `clean`,
+  `summary`, and `prompt`.
+
+### Changed
+
+- The output modes are now `raw`, `clean` (default), `summary`, `prompt`, `code`, and `systems`.
+
 ## [0.2.0] - 2026-06-26
 
 Adds a code-focused dictation mode for developers who dictate to AI coding assistants.

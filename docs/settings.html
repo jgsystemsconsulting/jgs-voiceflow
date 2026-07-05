@@ -150,9 +150,9 @@
       (backtick, good for programmers), or <code>CapsLock</code> if you remap it.</p>
       <p><b>Examples:</b></p>
       <ul>
-        <li><code>Ctrl+Space</code> — default, works in most apps</li>
-        <li><code>Alt+V</code> — mnemonic for "voice"</li>
-        <li><code>Ctrl+Shift+D</code> — "dictate", easy to remember</li>
+        <li><code>Ctrl+Space</code>: default, works in most apps</li>
+        <li><code>Alt+V</code>: mnemonic for "voice"</li>
+        <li><code>Ctrl+Shift+D</code>: "dictate", easy to remember</li>
       </ul>
       <div class="note"><b>Gotcha:</b> Some apps (like VS Code, Windows Terminal) swallow common
       hotkeys. Test your choice in the apps you use most. If it doesn't work, rebind to something less
@@ -166,9 +166,9 @@
       to start and tap again to stop.</p>
       <p><b>Options:</b></p>
       <ul>
-        <li><code>hold</code> — record while key is pressed, stop on release. Instant feedback on when
+        <li><code>hold</code>: record while key is pressed, stop on release. Instant feedback on when
         recording ends.</li>
-        <li><code>toggle</code> — tap once to start, tap again to stop. Hands-free, good for longer
+        <li><code>toggle</code>: tap once to start, tap again to stop. Hands-free, good for longer
         dictations.</li>
       </ul>
       <p><b>When to use:</b></p>
@@ -212,15 +212,15 @@
       the tray menu per-capture).</p>
       <p><b>Options:</b></p>
       <ul>
-        <li><code>raw</code> — verbatim transcript, lightly punctuated. Nothing removed or reworded.</li>
-        <li><code>clean</code> — removes filler ("um", "uh", repeats), fixes capitalization, and
+        <li><code>raw</code>: verbatim transcript, lightly punctuated. Nothing removed or reworded.</li>
+        <li><code>clean</code>: removes filler ("um", "uh", repeats), fixes capitalization, and
         improves punctuation. Works offline, instant.</li>
-        <li><code>code</code> — like clean, but also trims politeness and fixes programming terms
+        <li><code>code</code>: like clean, but also trims politeness and fixes programming terms
         ("dunder init" → <code>__init__</code>). Perfect for AI coding assistants.</li>
-        <li><code>summary</code> — condenses rambling speech into a tight, one-line brief. Needs an LLM.</li>
-        <li><code>prompt</code> — reformats your spoken words into a structured LLM prompt (Role, Task,
+        <li><code>summary</code>: condenses rambling speech into a tight, one-line brief. Needs an LLM.</li>
+        <li><code>prompt</code>: reformats your spoken words into a structured LLM prompt (Role, Task,
         Constraints, Context). Needs an LLM.</li>
-        <li><code>systems</code> — rewrites speech into formal Systems Engineering terminology per
+        <li><code>systems</code>: rewrites speech into formal Systems Engineering terminology per
         INCOSE/ISO 15288 (e.g. "make sure it works" → "verify compliance with the requirement").
         Needs an LLM.</li>
       </ul>
@@ -244,12 +244,12 @@
       <code>prompt</code> modes. Completely optional.</p>
       <p><b>Options:</b></p>
       <ul>
-        <li><code>none</code> — no LLM. <code>summary</code> and <code>prompt</code> fall back to a
+        <li><code>none</code>: no LLM. <code>summary</code> and <code>prompt</code> fall back to a
         rule-based cleaner (offline, instant, lower quality).</li>
-        <li><code>openai_compatible</code> — any OpenAI-compatible endpoint. Examples: Ollama, LM Studio,
+        <li><code>openai_compatible</code>: any OpenAI-compatible endpoint. Examples: Ollama, LM Studio,
         Azure OpenAI, or even your own local server.</li>
-        <li><code>anthropic</code> — Claude API (requires API key; your text is sent to Anthropic).</li>
-        <li><code>openai</code> — OpenAI API (requires API key; your text is sent to OpenAI).</li>
+        <li><code>anthropic</code>: Claude API (requires API key; your text is sent to Anthropic).</li>
+        <li><code>openai</code>: OpenAI API (requires API key; your text is sent to OpenAI).</li>
       </ul>
       <p><b>When to configure:</b></p>
       <ul>
@@ -331,9 +331,9 @@ model = "mistral"
       on first run based on your hardware.</p>
       <p><b>Options (v0.3.0):</b></p>
       <ul>
-        <li><code>parakeet</code> — NVIDIA's lightweight model. Faster, lower accuracy than Whisper.
+        <li><code>parakeet</code>: NVIDIA's lightweight model. Faster, lower accuracy than Whisper.
         Bundled in the installer. Recommended for most users.</li>
-        <li><code>whisper_tiny</code>, <code>whisper_base</code>, <code>whisper_small</code> — OpenAI
+        <li><code>whisper_tiny</code>, <code>whisper_base</code>, <code>whisper_small</code>: OpenAI
         Whisper models, in order of speed vs. accuracy trade-off. Tiny is fast but less accurate; small
         is slower but more accurate. All bundled in the installer.</li>
       </ul>
@@ -369,9 +369,9 @@ model = "mistral"
       <p><b>What it does:</b> What happens when you left-click the VoiceFlow tray icon.</p>
       <p><b>Options:</b></p>
       <ul>
-        <li><code>menu</code> — opens the context menu (mode switcher, Settings, Help).</li>
-        <li><code>paste_again</code> — re-pastes the last transcription (convenience shortcut).</li>
-        <li><code>toggle_mode</code> — cycles through modes without opening a menu.</li>
+        <li><code>menu</code>: opens the context menu (mode switcher, Settings, Help).</li>
+        <li><code>paste_again</code>: re-pastes the last transcription (convenience shortcut).</li>
+        <li><code>toggle_mode</code>: cycles through modes without opening a menu.</li>
       </ul>
       <p><b>Choose based on workflow:</b></p>
       <ul>
@@ -390,10 +390,10 @@ model = "mistral"
       is ever accessed by someone else.</p>
       <p><b>Options:</b></p>
       <ul>
-        <li><code>0</code> — no history, every capture is forgotten immediately.</li>
-        <li><code>7</code> — keep a week of history.</li>
-        <li><code>30</code> — default, keep a month.</li>
-        <li><code>-1</code> — keep forever.</li>
+        <li><code>0</code>: no history, every capture is forgotten immediately.</li>
+        <li><code>7</code>: keep a week of history.</li>
+        <li><code>30</code>: default, keep a month.</li>
+        <li><code>-1</code>: keep forever.</li>
       </ul>
       <p><b>Why you'd change it:</b> Privacy-sensitive work (medical, legal transcripts) → set to 0.
       Research or reference work where you want to look back → set to -1.</p>
@@ -475,7 +475,7 @@ model = "mistral"
         <code>CapsLock</code> if you remap it)</li>
         <li>Test in the apps where you use VoiceFlow most</li>
       </ul>
-      <p><b>Pro tip:</b> If a key combo still doesn't work, check the other app's settings—it might be
+      <p><b>Pro tip:</b> If a key combo still doesn't work, check the other app's settings, since it might be
       blocking the hotkey at a system level.</p>
     </div>
 

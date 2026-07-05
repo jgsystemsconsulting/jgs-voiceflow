@@ -27,6 +27,9 @@
 - **A `code` mode for AI coders**: trims spoken politeness, keeps code-meaningful words, and fixes
   programming terms ("dunder init" becomes `__init__`, "fast api" becomes `FastAPI`). Built for
   dictating to Claude Code and Cursor.
+- **A `systems` mode for systems engineers**: rewrites dictated speech into formal Systems
+  Engineering terminology per INCOSE and ISO/IEC/IEEE 15288 usage ("make sure it does X" becomes
+  "verify compliance with the requirement for X").
 - **Lives in the system tray** with a mode menu, settings, and optional start-on-login.
 - **Works fully offline**: the installer bundles the speech models; cloud is opt-in only.
 
@@ -49,7 +52,7 @@ Antivirus or SmartScreen questions: see [troubleshooting](docs/troubleshooting.m
 Paste this into a coding agent (Claude Code, Cursor, Copilot CLI, etc.) to install VoiceFlow for you:
 
 ```text
-Install VoiceFlow (Windows push-to-talk voice dictation), version 0.2.0, from
+Install VoiceFlow (Windows push-to-talk voice dictation), version 0.3.0, from
 https://github.com/jgsystemsconsulting/jgs-voiceflow
 
 1. First read this repo's README.md and docs/quickstart.md so you understand the product
@@ -95,11 +98,12 @@ Switch per-capture from the tray menu:
 | `summary` | Condensed into a tight brief | Optional (better with an LLM) |
 | `prompt` | Reformatted into a structured prompt | Optional (better with an LLM) |
 | `code` | Politeness trimmed, programming terms fixed, no LLM | No (offline, instant) |
+| `systems` | Rewritten into formal Systems Engineering terminology (INCOSE/ISO 15288) | Optional (better with an LLM) |
 
-`raw`, `clean`, and `code` work fully offline. `summary` and `prompt` are best with an optional
-local or cloud LLM, and fall back to the offline cleaner if none is configured. The `code` mode is
-built for dictating to AI coding assistants, and the built-in code-aware dictionary applies in
-every mode. See the [guide](https://jgsystemsconsulting.github.io/jgs-voiceflow/guide.html#code)
+`raw`, `clean`, and `code` work fully offline. `summary`, `prompt`, and `systems` are best with an
+optional local or cloud LLM, and fall back to the offline cleaner if none is configured. The `code`
+mode is built for dictating to AI coding assistants, and the built-in code-aware dictionary applies
+in every mode. See the [guide](https://jgsystemsconsulting.github.io/jgs-voiceflow/guide.html#code)
 and the [FAQ](docs/faq.md).
 
 ## Verifying your download
