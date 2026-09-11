@@ -1,0 +1,82 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "check_release.py",
+      "file_type": "code",
+      "source_file": "scripts\\check_release.py",
+      "source_location": "L1",
+      "id": "scripts_check_release_py",
+      "community": 0,
+      "norm_label": "check_release.py"
+    },
+    {
+      "label": "top_changelog_version()",
+      "file_type": "code",
+      "source_file": "scripts\\check_release.py",
+      "source_location": "L43",
+      "id": "check_release_top_changelog_version",
+      "community": 0,
+      "norm_label": "top_changelog_version()"
+    },
+    {
+      "label": "release_info_version()",
+      "file_type": "code",
+      "source_file": "scripts\\check_release.py",
+      "source_location": "L51",
+      "id": "check_release_release_info_version",
+      "community": 0,
+      "norm_label": "release_info_version()"
+    },
+    {
+      "label": "citation_version()",
+      "file_type": "code",
+      "source_file": "scripts\\check_release.py",
+      "source_location": "L56",
+      "id": "check_release_citation_version",
+      "community": 0,
+      "norm_label": "citation_version()"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts\\check_release.py",
+      "source_location": "L43",
+      "weight": 1.0,
+      "_src": "scripts_check_release_py",
+      "_tgt": "check_release_top_changelog_version",
+      "source": "scripts_check_release_py",
+      "target": "check_release_top_changelog_version",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts\\check_release.py",
+      "source_location": "L51",
+      "weight": 1.0,
+      "_src": "scripts_check_release_py",
+      "_tgt": "check_release_release_info_version",
+      "source": "scripts_check_release_py",
+      "target": "check_release_release_info_version",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts\\check_release.py",
+      "source_location": "L56",
+      "weight": 1.0,
+      "_src": "scripts_check_release_py",
+      "_tgt": "check_release_citation_version",
+      "source": "scripts_check_release_py",
+      "target": "check_release_citation_version",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": []
+}
