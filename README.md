@@ -120,6 +120,8 @@ download from the official releases page and check the checksum.) See
 - VoiceFlow is **proprietary software that is free to use**: you may install and run it free of
   charge for personal or internal business use; you may not copy, modify, redistribute, or
   reverse-engineer it. See the full **[LICENSE](LICENSE)**.
+- No purchase or licence key is needed to use VoiceFlow. For commercial licensing questions
+  outside the free-to-use terms, see [labs.jgsystemsconsulting.com/licensing.html](https://labs.jgsystemsconsulting.com/licensing.html).
 
 ---
 

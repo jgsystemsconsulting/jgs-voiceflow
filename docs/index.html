@@ -71,7 +71,7 @@
     letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute);
   }
   .masthead b { color: var(--text-hi); font-weight: 700; }
-  .masthead .nav { margin-left: auto; display: flex; gap: 18px; }
+  .masthead .nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 8px 18px; }
   .masthead .nav a { border: 0; color: var(--mute); }
   .masthead .nav a:hover { color: var(--text-hi); }
 
@@ -195,8 +195,13 @@
     <span>DOC-ID: <b>JGS-VOICEFLOW</b></span>
     <span>REV <b>0.3.0</b></span>
     <nav class="nav" aria-label="Primary">
+      <a href="#who">Who it's for</a>
+      <a href="#how-it-works">How it works</a>
       <a href="#modes">Modes</a>
       <a href="#code">Code mode</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#install">Install</a>
+      <a href="#get-started">Get started</a>
       <a href="guide.html">Guide</a>
       <a href="docs.html">Docs</a>
     </nav>
@@ -223,7 +228,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="who">
     <div class="wrap sec">
       <p class="label">§02 · Who it is for</p>
       <p class="body">VoiceFlow is for anyone who would rather talk than type, and especially for
@@ -237,7 +242,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="how-it-works">
     <div class="wrap sec">
       <p class="label">§03 · How it works</p>
       <h2>One simple loop</h2>
@@ -363,7 +368,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="privacy">
     <div class="wrap sec">
       <p class="label">§06 · Privacy</p>
       <h2>Local-only is the default path</h2>
@@ -381,7 +386,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="install">
     <div class="wrap sec">
       <p class="label">§07 · Install</p>
       <div class="steps">
@@ -397,7 +402,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="get-started">
     <div class="wrap sec">
       <p class="label">§08 · Documentation</p>
       <div class="sheet">
@@ -426,7 +431,8 @@
     of JG Systems Consulting Ltd. VoiceFlow is proprietary software, free to use under its
     <a href="https://github.com/jgsystemsconsulting/jgs-voiceflow/blob/main/LICENSE">LICENSE</a>.
     It uses open-source components (including faster-whisper and OpenAI Whisper models), each under
-    its own licence.</p>
+    its own licence. No purchase or key is needed to use it; for commercial licensing questions, see
+    <a href="https://labs.jgsystemsconsulting.com/licensing.html">licensing enquiries</a>.</p>
   </div>
 </footer>
 
