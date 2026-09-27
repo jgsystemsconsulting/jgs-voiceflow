@@ -90,3 +90,7 @@ graphify-out/
 
 # graphify knowledge graph kept local-only (public repo)
 .planning/
+
+# --- Superpowers pipeline artifacts (stay out of git) ---
+.superpowers/
+docs/superpowers/
